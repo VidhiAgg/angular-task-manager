@@ -19,7 +19,7 @@ export class LoginService {
   }
   currentUserName: any=null;
   public login(loginView: LoginViewModel):Observable<any>{
-    //represents the actual HttpClient w/o any interceptor
+    //represents the actual HttpClient w/o any interceptor i.e. the authorization req is not added for this eq
     this.httpClient = new HttpClient(this.httpBackend);
     return this.httpClient.post<any>(this.url,loginView,{responseType:"json"})
     .pipe(map(user =>{

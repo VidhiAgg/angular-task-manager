@@ -10,16 +10,16 @@ export class ProjectsService {
 
 url: string ="http://localhost:9090/api/projects";
 
-//httpcClient is just a refrence variable, used to access the object of httpClient service
-//and private word make the property of current working service class0
+//httpClient is just a refrence variable, used to access the object of httpClient service
+//and private word make the property of current working service class
   constructor(private httpClient:HttpClient) {
       
     }
 
- // by using obs u mean that u are ready to rtuen an array of projects tht is recived from server as response
+ // by using obs u mean that u are ready to return an array of projects tht is recived from server as response
   gtAllProjects():Observable<Project[]>{
 
-     /*
+     /* One method, send indivually the token
         * for all, subsequent request, where the authenticatio is required, You require 
         * to submitt the same token as a part of request header
         *  for ex, while making equest ti "api/projects" in he "project" service,
@@ -36,8 +36,10 @@ url: string ="http://localhost:9090/api/projects";
          //this header will be send to the server. And on the server side, the Authorize attribute will
          //recive and verify the same
        }
+       return this.httpClient.get<Project[]>(this.url,{headers: headers, responseType:"json"})
 */
-    return this.httpClient.get<Project[]>(this.url,{ responseType:"json"})
+//other method include using HTTPInterceptors
+    return this.httpClient.get<Project[]>(this.url,{responseType:"json"})
     .pipe(map(
       (data: Project[])=>
       {
@@ -47,7 +49,7 @@ url: string ="http://localhost:9090/api/projects";
         }
         return data;
       }
-    )); // thi method returns an observable of project array type
+    )); // this method returns an observable of project array type
 
   }
   insertProject(newProject:Project):Observable<Project>{
