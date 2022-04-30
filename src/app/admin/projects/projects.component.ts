@@ -31,9 +31,15 @@ searchText:string="";
       //this data type should be same that u have mentioned in observable
       (response:Project[])=>{ 
         this.projects=response; // assigning same to the project poperty of current component
+      },
+      (error) =>{
+        alert("Authentication failed");
+        console.log("error");
+        
       }
     );
   }
+
   addNewProject():void{
     this.projctService.insertProject(this.newProject).subscribe((response)=>{
       //this.projects.push(this.newProject) its not recomded because next time when you assign 

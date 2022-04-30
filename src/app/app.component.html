@@ -5,24 +5,25 @@
   </button>
   <div class="collapse navbar-collapse" id="mynav">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngIf="loginService.currentUserName!=null">
+      <li class="nav-item" *ngIf="loginService.currentUserName != null">
         <a class="nav-link" routerLink="dashboard">Dashboard</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="loginService.currentUserName != null">
         <a class="nav-link" routerLink="about">About</a>
       </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName!=null">
+      <li class="nav-item" *ngIf="loginService.currentUserName!= null">
         <a class="nav-link" routerLink="projects">Projects</a>
       </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName!=null">
+      <li class="nav-item" *ngIf="loginService.currentUserName!= null">
         <a class="nav-link" routerLink="#">{{loginService.currentUserName}}</a>
       </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName!=null">
+      <li class="nav-item" *ngIf="loginService.currentUserName!= null">
         <a class="nav-link" routerLink="#" (click)="loginService.logout()">Logout</a>
       </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName==null">
+      <li class="nav-item" *ngIf="loginService.currentUserName == null">
         <a class="nav-link" routerLink="login">Login</a>
       </li>
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <div class="input-group">

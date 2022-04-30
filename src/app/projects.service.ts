@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import{HttpClient} from '@angular/common/http'
+import{HttpClient, HttpHeaders} from '@angular/common/http'
 import {  Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Project } from './project';
@@ -12,11 +12,32 @@ url: string ="http://localhost:9090/api/projects";
 
 //httpcClient is just a refrence variable, used to access the object of httpClient service
 //and private word make the property of current working service class0
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient) {
+      
+    }
 
  // by using obs u mean that u are ready to rtuen an array of projects tht is recived from server as response
   gtAllProjects():Observable<Project[]>{
-    return this.httpClient.get<Project[]>(this.url,{responseType:"json"})
+
+     /*
+        * for all, subsequent request, where the authenticatio is required, You require 
+        * to submitt the same token as a part of request header
+        *  for ex, while making equest ti "api/projects" in he "project" service,
+        * we require to add the JWT toke into a request header 
+        * called "authorization" with a prefix called "Bearer"
+        */
+       /*var currentUser = {token: ""}; //created an obj with empty token
+       var headers = new HttpHeaders();
+       headers = headers.set("Authorization","Bearer ");
+       if(sessionStorage != null){
+         // going to convert it into object
+         currentUser = JSON.parse(sessionStorage['currentUser']);
+         headers = headers.set("Authorization" ,"Bearer "+ currentUser.token); 
+         //this header will be send to the server. And on the server side, the Authorize attribute will
+         //recive and verify the same
+       }
+*/
+    return this.httpClient.get<Project[]>(this.url,{ responseType:"json"})
     .pipe(map(
       (data: Project[])=>
       {
