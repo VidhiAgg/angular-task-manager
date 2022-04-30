@@ -57,8 +57,7 @@ export class LoginService {
       this.router.navigate(['']);
     }
     public isAuthenticated(): boolean{
-      var token = sessionStorage.getItem("currentUser")?
-      JSON.parse(sessionStorage.getItem("currentUser")).token:null
+     
       //false token is invalid , true //token is valid
       if (this.jwtHelerService.isTokenExpired() ) {
         return false;
