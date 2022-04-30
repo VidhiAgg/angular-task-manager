@@ -32,11 +32,12 @@ searchText:string="";
       (response:Project[])=>{ 
         this.projects=response; // assigning same to the project poperty of current component
       },
-      (error) =>{
+      //since using intercepttor for handling errors, no need for this
+      /*(error) =>{
         alert("Authentication failed");
         console.log("error");
         
-      }
+      }*/
     );
   }
 

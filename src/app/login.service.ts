@@ -1,6 +1,7 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { map, Observable } from 'rxjs';
 import { LoginViewModel } from './login-view-model';
 
@@ -13,13 +14,15 @@ export class LoginService {
   private httpClient : HttpClient;
 //HttpBackend -> represnts http Client w/o interceptors
   constructor(private httpBackend: HttpBackend,
-    private router : Router) { 
+    private router : Router,
+    private jwtHelerService: JwtHelperService) { 
 
     
   }
   currentUserName: any=null;
   public login(loginView: LoginViewModel):Observable<any>{
-    //represents the actual HttpClient w/o any interceptor i.e. the authorization req is not added for this eq
+    //represents the actual HttpClient w/o any interceptor i.e. 
+    //the authorization req is not added for this req
     this.httpClient = new HttpClient(this.httpBackend);
     return this.httpClient.post<any>(this.url,loginView,{responseType:"json"})
     .pipe(map(user =>{
@@ -52,5 +55,15 @@ export class LoginService {
     public logout():void {
       sessionStorage.removeItem("currentUser");
       this.router.navigate(['']);
+    }
+    public isAuthenticated(): boolean{
+      var token = sessionStorage.getItem("currentUser")?
+      JSON.parse(sessionStorage.getItem("currentUser")).token:null
+      //false token is invalid , true //token is valid
+      if (this.jwtHelerService.isTokenExpired() ) {
+        return false;
+      } else {
+        return true;
+      }
     }
 }
