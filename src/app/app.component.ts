@@ -19,7 +19,7 @@ export class AppComponent {
 //this will show the <iframe> tagg and will not be blocked
 //myProperty = this.domSanitizer.bypassSecurityTrustHtml("<iframe src='http://www.lipsum.com'></iframe>");
 //will open google window om hello click
-//myProperty = this.domSanitizer.bypassSecurityTrustUrl("javascript:window.open('http://www.google.com')");
+//myPropertyy = this.domSanitizer.bypassSecurityTrustUrl("javascript:window.open('http://www.google.com')");
 myProperty = this.domSanitizer.bypassSecurityTrustResourceUrl("https://upload.wikimedia.org/wikipedia/commons/1/12/User_icon_2.svg");
 
   onSearchClick()
