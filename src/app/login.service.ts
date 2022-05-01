@@ -24,11 +24,11 @@ export class LoginService {
     //represents the actual HttpClient w/o any interceptor i.e. 
     //the authorization req is not added for this req
     this.httpClient = new HttpClient(this.httpBackend);
-    return this.httpClient.post<any>(this.url,loginView,{responseType:"json"})
-    .pipe(map(user =>{
-      if(user)
+    return this.httpClient.post<any>(this.url,loginView,{responseType:"json", observe: "response"})
+    .pipe(map(response =>{
+      if(response)
       {
-        this.currentUserName=user.userName;
+        this.currentUserName=response.body.userName;
         //ss so that it will not be accessible by oter tabs and browser
         //storing complete user object in the session storage
         //so it became availabel gor other services
@@ -44,9 +44,10 @@ export class LoginService {
         //storing complete user object in the session storage
         //so it became availabel gor other services
         
-        sessionStorage['currentUser'] = JSON.stringify(user);
+        sessionStorage['currentUser'] = JSON.stringify(response.body);
+        sessionStorage['XSRFRequestToken'] = response.headers.get("XSRF-REQUEST-TOKEN")
       }
-      return user;
+      return response.body;
     }));
   }
     /**

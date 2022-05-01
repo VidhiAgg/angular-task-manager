@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { LoginService } from './login.service';
 
 @Component({
@@ -8,7 +9,10 @@ import { LoginService } from './login.service';
 })
 export class AppComponent {
   title = 'TaskManger';
-  constructor(public loginService:LoginService){
-
+  constructor(
+    public loginService:LoginService){}
+  onSearchClick()
+  {
+    console.log(this.loginService.currentUserName);
   }
 }

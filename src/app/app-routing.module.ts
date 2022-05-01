@@ -9,9 +9,11 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService] },
+  { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService],data: {
+    expectedRole : " admin" } },
   { path: 'about', component: AboutComponent },
-  { path: 'projects', component: ProjectsComponent, canActivate : [CanActiveGuardService] }
+  { path: 'projects', component: ProjectsComponent, canActivate : [CanActiveGuardService],data: {
+    expectedRole : " admin" } }
  
   
 ];
