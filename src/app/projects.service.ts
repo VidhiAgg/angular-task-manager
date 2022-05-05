@@ -45,7 +45,7 @@ url: string ="http://localhost:9090/api/projects";
       {
         for(let i=0;i<data.length;i++)
         {
-            data[i].teamSize= data[i].teamSize*100;
+            //data[i].teamSize= data[i].teamSize*100;
         }
         return data;
       }

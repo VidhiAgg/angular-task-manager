@@ -20,7 +20,7 @@ export class AppComponent {
 //myProperty = this.domSanitizer.bypassSecurityTrustHtml("<iframe src='http://www.lipsum.com'></iframe>");
 //will open google window om hello click
 //myPropertyy = this.domSanitizer.bypassSecurityTrustUrl("javascript:window.open('http://www.google.com')");
-myProperty = this.domSanitizer.bypassSecurityTrustResourceUrl("https://upload.wikimedia.org/wikipedia/commons/1/12/User_icon_2.svg");
+//myProperty = this.domSanitizer.bypassSecurityTrustResourceUrl("https://upload.wikimedia.org/wikipedia/commons/1/12/User_icon_2.svg");
 
   onSearchClick()
   {

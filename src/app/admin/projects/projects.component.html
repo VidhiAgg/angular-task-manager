@@ -1,42 +1,58 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
     <div class="d-flex flex-column">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  p-3">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 " style="text-align-last:left;float:left;font-family:'Times New Roman';">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 "
+                style="text-align-last:left;float:left;font-family:'Times New Roman';">
                 <h1>
-                    <span style ="margin-left:-25px;">Projects </span></h1>
+                    <span style="margin-left:-25px;">Projects </span>
+                    
+        <i class="fa fa-circle-o-notch fa-spin" style="font-size:34px" *ngIf="showLoading"></i>
+                   
+                </h1>
+               
             </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 " style="text-align-last:right;float:right">
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#addModal">Create Project</button>
-                </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 " style="text-align-last:right;float:right">
+                <button class="btn btn-danger" data-toggle="modal" data-target="#addModal">Create Project</button>
+            </div>
         </div>
-                <form class="form-inline ">
-                 
-                        <div class="form-group row"> <!-- col-sm-8 col-lg-8 col-md-8 col-xs-8"-->
-                        <label for="searchText" class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Search Text</label>
-                        <div class="input-group col-sm-8 col-lg-8 col-md-8 col-xs-8">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-search"></i></span>
-                            </div>
-                            <input type="text" class="form-control" id="searchText" name="searchText" [(ngModel)]="searchText">
-                        </div>
-                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <div class="form-group row "><!--col-sm-8 col-lg-8 col-md-8 col-xs-8"> -->
-                        <label for="searchBy" class="col-sm-5 col-lg-5 col-md-5 col-xs-5  col-form-label">Search By</label>
-                        <div class="col-sm-7 col-lg-7 col-md-7 col-xs-7">
-                            <select class="form-control" style="width: 125%;"  id="searchBy" name="searchBy" [(ngModel)]="searchBy">
-                       
-                                <option value="ProjectID">Project ID</option>
-                                <option options value="ProjectName">Project Name</option>
-                                <option options value="Date of Start">Date of Start</option>
-                                <option options value="Team Size">Team Size</option>
-                        </select>
+        <form class="form-inline ">
+
+            <div class="form-group row col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <!--col-sm-8 col-lg-8 col-md-8 col-xs-8"> -->
+                <label for="searchBy" class="col-form-label col-sm-4 col-lg-4 col-md-4 col-xs-4 " 
+                style="margin-left: -6%;">Search By:</label>
+                <div class="col-sm-8 col-lg-8 col-md-8 col-xs-8">
+                    <select class="form-control" style="width: 125%;" id="searchBy" name="searchBy"
+                        [(ngModel)]="searchBy">
+
+                        <option value="ProjectID">Project ID</option>
+                        <option options value="ProjectName">Project Name</option>
+                        <option options value="Date of Start">Date of Start</option>
+                        <option options value="Team Size">Team Size</option>
+                    </select>
                 </div>
+            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <div class="form-group row col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <!-- col-sm-8 col-lg-8 col-md-8 col-xs-8"-->
+                <label for="searchText" class="col-form-label col-sm-4 col-lg-4 col-md-4 col-xs-4 text-right ">Search Text</label>
+                <div class="input-group col-sm-7 col-lg-7 col-md-7 col-xs-7">
+                    <input type="text" class="form-control" id="searchText" name="searchText" [(ngModel)]="searchText">
+
+                    <div class="input-group-append">
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 " style="text-align-last:right;float:right">
-                        <button class="btn btn-success" (click)="onSearchClick()">Search</button>
-                    </div>
-                </form>
+                </div>
+            
+            </div>
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align-last:right;float:right">
+                <button class="btn btn-success" (click)="onSearchClick()">Search</button>
+            </div>
+            
+        </form>
 
 
         <div class="contanier mt-3">
@@ -47,21 +63,25 @@
                         <th>Project Name</th>
                         <th>Project Start Date</th>
                         <th>Team Size</th>
+                        <th>Client Location</th>
+                        <th>Status</th>
                         <th>Actions</th>
-                    
+
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of projects let i=index">
+                        <tr *ngFor="let item of projects let i=index" [ngClass]="{'text-muted' : !item.active}">
                             <td>{{item.projectID}}</td>
                             <td>{{item.projectName}}</td>
                             <td>{{item.dateOfStart}}</td>
                             <td>{{item.teamSize}}</td>
-                                <td>
-                                    <button class="btn btn-info" (click)="onEditClick($event,i)"
-                                    data-toggle="modal" data-target="#updateModal">Edit</button>&nbsp;
-                                    <button class="btn btn-danger" (click)="onDeleteClick($event,i)"
-                                    data-toggle="modal" data-target="#deleteModal">Delete</button>
-                                </td>
+                            <td>{{item.clientLocation.clientLocationName}}</td>
+                            <td>{{item.status}}</td>
+                            <td>
+                                <button class="btn btn-info" (click)="onEditClick($event,i)" data-toggle="modal"
+                                    data-target="#updateModal">Edit</button>&nbsp;
+                                <button class="btn btn-danger" (click)="onDeleteClick($event,i)" data-toggle="modal"
+                                    data-target="#deleteModal">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -73,8 +93,8 @@
                 aria-labelledby="addModalLabel" aria-hidden="true">
                 <div class=" modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Add Project</h5>
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title">Add New Project</h5>
                             <button type="button" data-dismiss="modal" class="close" aria-hidden="true">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -85,17 +105,16 @@
                                     <label for="txtProjectId"
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project ID</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                        <input type="text" class="form-control"  name="ProjectID"
-                                         [(ngModel)]="newProject.projectID" id="txtProjectId">
+                                        <input type="text" class="form-control" name="ProjectID"
+                                            [(ngModel)]="newProject.projectID" id="txtProjectId">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="txtProjectName"
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project Name</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                        <input type="text"  name="ProjectName"
-                                        [(ngModel)]="newProject.projectName"    
-                                        class="form-control" id="txtProjectName">
+                                        <input type="text" name="ProjectName" [(ngModel)]="newProject.projectName"
+                                            class="form-control" id="txtProjectName">
                                         <!--whenever user type anyvalue to the text box that should
                                              automatically be updated in project.projectId -->
                                     </div>
@@ -105,24 +124,75 @@
                                         class="col-sm-4 col-lg-4 col-md-4 cols-xs-4  col-form-label">Date of
                                         Start</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                        <input type="date" [(ngModel)]="newProject.dateOfStart"  name="DateOfStart"
-                                        class="form-control" id="txtDateStart">
+                                        <input type="date" [(ngModel)]="newProject.dateOfStart" name="DateOfStart"
+                                            class="form-control" id="txtDateStart">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="txtProjectSize"
-                                        class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project Size</label>
+                                        class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Team Size</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                                         <input type="text" [(ngModel)]="newProject.teamSize" name="ProjectTeamSize"
-                                        class="form-control" id="txtProjectSize">
+                                            class="form-control" id="txtProjectSize">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label for="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label"></label>
+                                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                                        <div class="form-check">
+                                        <input type="checkbox" [(ngModel)]="newProject.active" value="true" name="active"
+                                            class="form-check-input" id="chkNewActive">
+                                            <label class="form-check-label" id="chkNewActive">Active</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="rbStatusInForce" class="col-sm-4 col-lg-4 col-md-4 col-xs-4">Status</label>
+                                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+
+
+                                        <div class="form-check form-check-inline">
+                                        <input type="radio" [(ngModel)]="newProject.status" value="In force" name="Status"
+                                            class="form-check-input" id="rbStatusInForce">
+                                            <label class="form-check-label" id="rbStatusInForce">In Force</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" [(ngModel)]="newProject.status" value="Support" name="Status"
+                                                class="form-check-input" id="rbStatusSupport">
+                                                <label class="form-check-label" id="rbStatusSupport">Support</label>
+                                            </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="drpNewLocations" class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Client Location</label>
+                                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                                        <select id="drpNewLocation" class="form-control"[(ngModel)]="newProject.clientLocationID" 
+                                        name="clientLocation" class="form-control" >
+                                        <option value="null">Please Select</option>
+                                        <option *ngFor="let clientLocation of clientLocations" value="clientLocation.ClientLocationID">
+                                            {{clientLocation.clientLocationName}}
+                                        </option>
+                                    </select>
+
+                                    </div>
+                                </div>
+
+
+
+
                             </form>
                         </div>
                         <div class="class modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="clearFields()">Clear</button>
-                            
-                            <button type="submit" class="btn btn-danger" data-dismiss="modal" (click)="addNewProject()">Save</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"
+                                (click)="clearFields()">Clear</button>
+
+                            <button type="submit" class="btn btn-danger" data-dismiss="modal"
+                                (click)="addNewProject()">Save</button>
                         </div>
                     </div>
                 </div>
@@ -148,17 +218,16 @@
                                     <label for="txtEditProjectId"
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project ID</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                        <input type="text" class="form-control-plain-text"  name="ProjectID" disabled="true"
-                                         [(ngModel)]="editProject.projectID" id="txtEditProjectId">
+                                        <input type="text" class="form-control-plain-text" name="ProjectID"
+                                            disabled="true" [(ngModel)]="editProject.projectID" id="txtEditProjectId">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="txtEditProjectName"
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project Name</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                        <input type="text"  name="ProjectName"
-                                        [(ngModel)]="editProject.projectName"    
-                                        class="form-control" id="txtEditProjectName">
+                                        <input type="text" name="ProjectName" [(ngModel)]="editProject.projectName"
+                                            class="form-control" id="txtEditProjectName">
                                         <!--whenever user type anyvalue to the text box that should
                                              automatically be updated in project.projectId -->
                                     </div>
@@ -168,8 +237,8 @@
                                         class="col-sm-4 col-lg-4 col-md-4 cols-xs-4  col-form-label">Date of
                                         Start</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                        <input type="date" [(ngModel)]="editProject.dateOfStart"  name="DateOfStart"
-                                        class="form-control" id="txtEditProjectDateStart">
+                                        <input type="date" [(ngModel)]="editProject.dateOfStart" name="DateOfStart"
+                                            class="form-control" id="txtEditProjectDateStart">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -177,24 +246,80 @@
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project Size</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                                         <input type="text" [(ngModel)]="editProject.teamSize" name="ProjectTeamSize"
-                                        class="form-control" id="txtEditProjectSize">
+                                            class="form-control" id="txtEditProjectSize">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label for="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label"></label>
+                                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                                        <div class="form-check">
+                                        <input type="checkbox" [(ngModel)]="editProject.active" value="true"
+                                            class="form-check-input" id="chkEditActive" name="active">
+                                            <label class="form-check-label" id="chkEditActive">Active</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="rbEditStatusInForce" class="col-sm-4 col-lg-4 col-md-4 col-xs-4">Status</label>
+                                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+
+
+                                        <div class="form-check form-check-inline">
+                                        <input type="radio" [(ngModel)]="editProject.status" value="In force" name="Status"
+                                            class="form-check-input" id="rbEditStatusInForce">
+                                            <label class="form-check-label" id="rbEditStatusInForce">In Force</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline">
+                                            <input type="radio" [(ngModel)]="editProject.status" value="Support" name="Status"
+                                                class="form-check-input" id="rbEditStatusSupport">
+                                                <label class="form-check-label" id="rbEditStatusSupport">Support</label>
+                                            </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="drpEditLocations" class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Client Location</label>
+                                    <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
+                                        <select id="drpEditLocation" class="form-control"[(ngModel)]="editProject.clientLocationID" 
+                                        name="clientLocation" class="form-control" >
+                                        <option value="null">Please Select</option>
+                                        <option *ngFor="let clientLocation of clientLocations" value="clientLocation.ClientLocationID">
+                                            {{clientLocation.clientLocationName}}
+                                        </option>
+                                    </select>
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
                             </form>
                         </div>
                         <div class="class modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="clearFields()">Clear</button>
-                            
-                            <button type="submit" class="btn btn-success" data-dismiss="modal" (click)="updateProject()">Update</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                (click)="clearFields()">Clear</button>
+
+                            <button type="submit" class="btn btn-success" data-dismiss="modal"
+                                (click)="updateProject()">Update</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-          <!--Delete Project-->
+        <!--Delete Project-->
 
-          <div class="class container" p-5>
+        <div class="class container" p-5>
             <div class="modal fade" id="deleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
                 aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class=" modal-dialog">
@@ -212,29 +337,31 @@
                                     <label for="txtDeleteProjectId"
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project ID</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                        <input type="text" class="form-control-plain-text"  name="ProjectID" disabled="true"
-                                         [(ngModel)]="deleteProject.projectID" id="txtDeleteProjectId">
+                                        <input type="text" class="form-control-plain-text" name="ProjectID"
+                                            disabled="true" [(ngModel)]="deleteProject.projectID"
+                                            id="txtDeleteProjectId">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="txtDeleteProjectName"
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project Name</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
-                                        <input type="text"  name="ProjectName"
-                                        [(ngModel)]="deleteProject.projectName"  disabled="true"  
-                                        class="form-control" id="txtDeleteProjectName">
+                                        <input type="text" name="ProjectName" [(ngModel)]="deleteProject.projectName"
+                                            disabled="true" class="form-control" id="txtDeleteProjectName">
                                         <!--whenever user type anyvalue to the text box that should
                                              automatically be updated in project.projectId -->
                                     </div>
                                 </div>
                                 <div class="class modal-footer">
-                                    <button type="button" class="btn btn-info" data-dismiss="modal" (click)="clearFields()">Clear</button>
-                                    
-                                    <button type="submit" class="btn btn-danger" data-dismiss="modal" (click)=" onDeleteConfirm()">Delete</button>
+                                    <button type="button" class="btn btn-info" data-dismiss="modal"
+                                        (click)="clearFields()">Clear</button>
+
+                                    <button type="submit" class="btn btn-danger" data-dismiss="modal"
+                                        (click)=" onDeleteConfirm()">Delete</button>
                                 </div>
                             </form>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../../project';
 import { ProjectsService } from '../..//projects.service';
+import { ClientLocation } from 'src/app/client-location';
+import { ClientLocationService } from 'src/app/client-location.service';
 
 @Component({
   selector: 'app-projects',
@@ -20,7 +22,12 @@ deleteProject: Project = new Project();
 deleteIndex:any=null;
 searchBy:string="ProjectName";
 searchText:string="";
-  constructor(private projctService: ProjectsService) { }
+//to show the spinner
+ showLoading :  boolean = true;
+
+clientLocations : ClientLocation[] = []
+  constructor(private projctService: ProjectsService,
+    private clientLocationService : ClientLocationService) { }
 
   ngOnInit(): void {
     //will return observable of project
@@ -31,6 +38,7 @@ searchText:string="";
       //this data type should be same that u have mentioned in observable
       (response:Project[])=>{ 
         this.projects=response; // assigning same to the project poperty of current component
+        this.showLoading = false;
       },
       //since using intercepttor for handling errors, no need for this
       /*(error) =>{
@@ -38,10 +46,21 @@ searchText:string="";
         console.log("error");
         
       }*/
+     
     );
+
+    //we need to fetch the data, in order to bind it with the dropDown List
+    this.clientLocationService.getClientLocation().subscribe(
+      (response) =>{
+        this.clientLocations = response;
+
+      }
+    );
+   
   }
 
   addNewProject():void{
+    this.newProject.clientLocation.clientLocationID = 0;
     this.projctService.insertProject(this.newProject).subscribe((response)=>{
       //this.projects.push(this.newProject) its not recomded because next time when you assign 
       //this.newProject.projectID = null, the same null value will automatically aafected in the 
@@ -52,9 +71,21 @@ searchText:string="";
       obj.projectName = response.projectName;
       obj.dateOfStart = response.dateOfStart;
       obj.teamSize = response.teamSize;
+      obj.active =  response.active;
+      obj.clientLocationID =  response.clientLocationID;
+      obj.clientLocation = response.clientLocation;
+      obj.status = response.status;
       this.projects.push(obj);
+      //clear new project dialog - textBoxes
 
-    
+      this.newProject.dateOfStart=null;
+      this.newProject.projectID=null;
+      this.newProject.projectName=null;
+      this.newProject.teamSize=null;
+      this.newProject.active=false;
+      this.newProject.status=null;
+      this.newProject.clientLocationID=null;
+      this.newProject.clientLocation=null;
     },
       (error:any)=>{console.log(error)});
   }
@@ -62,8 +93,11 @@ searchText:string="";
   onEditClick(event:any, index:number){
     this.editProject.projectID=this.projects[index].projectID;
     this.editProject.projectName = this.projects[index].projectName;
-    this.editProject.dateOfStart = this.projects[index].dateOfStart;
-    this.editProject.teamSize = this.projects[index].teamSize;
+    this.editProject.dateOfStart = this.projects[index].dateOfStart.split("/").reverse().join("-");
+    this.editProject.active = this.projects[index].active;
+    this.editProject.status = this.projects[index].status;
+    this.editProject.clientLocationID = this.projects[index].clientLocationID;
+    this.editProject.clientLocation.teamSize = this.projects[index].clientLocation;
     this.editIndex=index;
 
   }
@@ -74,13 +108,19 @@ searchText:string="";
       obj.projectName = response.projectName;
       obj.dateOfStart = response.dateOfStart;
       obj.teamSize = response.teamSize;
+      obj.active = response.active;
+      obj.clientLocationID= response.clientLocationID;
+      obj.clientLocation = response.clientLocation;
+      obj.status= response.status;
       this.projects[this.editIndex] = obj;
+
       //Clearing field
 
       this.editProject.dateOfStart=null;
       this.editProject.projectID=null;
       this.editProject.projectName=null;
       this.editProject.teamSize=null;
+
     },
     (error)=>{console.log(error)});
   }
@@ -89,6 +129,7 @@ searchText:string="";
     this.deleteProject.projectName = this.projects[index].projectName;
     this.deleteProject.dateOfStart = this.projects[index].dateOfStart;
     this.deleteProject.teamSize = this.projects[index].teamSize;
+
     this.deleteIndex=index;
 
 
