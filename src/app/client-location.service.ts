@@ -10,7 +10,7 @@ export class ClientLocationService {
 
   constructor(private httpClient : HttpClient) { }
   getClientLocation():Observable<ClientLocation[]>{
-    return this.httpClient.get<ClientLocation[]>("/api/clientlocations",{responseType: "json"})
+    return this.httpClient.get<ClientLocation[]>("http://localhost:9090/api/clientlocations",{responseType: "json"})
 
   }
 }

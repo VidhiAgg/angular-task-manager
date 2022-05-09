@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Project } from '../../project';
 import { ProjectsService } from '../..//projects.service';
 import { ClientLocation } from 'src/app/client-location';
 import { ClientLocationService } from 'src/app/client-location.service';
-
+import { NgForm } from '@angular/forms';
+import *as $ from "jquery";
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -25,14 +26,19 @@ searchText:string="";
 //to show the spinner
  showLoading :  boolean = true;
 
+ //in order to access the newForm based on the refernce name in component, we have to use viewChild.
+
+ @ViewChild("newForm") newForm: NgForm; //property "newForm" is used to access the <form>tag, whichh is already created in  the template,
+ // so that we can access all methd and properti
+ @ViewChild("editForm") editForm: NgForm;
 clientLocations : ClientLocation[] = []
-  constructor(private projctService: ProjectsService,
+  constructor(private projectService: ProjectsService,
     private clientLocationService : ClientLocationService) { }
 
   ngOnInit(): void {
     //will return observable of project
     //subscribe method creates observer
-    this.projctService.gtAllProjects().subscribe(
+    this.projectService.gtAllProjects().subscribe(
       //user error function that will execute after receiving data from server
       //we are using a variable "response" of project array data type
       //this data type should be same that u have mentioned in observable
@@ -59,9 +65,51 @@ clientLocations : ClientLocation[] = []
    
   }
 
+  onNewClick(event){
+    this.newForm.resetForm();
+  }
+  onSaveClick()
+  {
+    if (this.newForm.valid)
+    {
+      this.newProject.clientLocation.clientLocationID = 0;
+      this.projectService.insertProject(this.newProject).subscribe((response) =>
+      {
+        //Add Project to Grid
+        var p: Project = new Project();
+        p.projectID = response.projectID;
+        p.projectName = response.projectName;
+        p.dateOfStart = response.dateOfStart;
+        p.teamSize = response.teamSize;
+        p.clientLocation = response.clientLocation;
+        p.active = response.active;
+        p.clientLocationID = response.clientLocationID;
+        p.status = response.status;
+        this.projects.push(p);
+
+        //Clear New Project Dialog - TextBoxes
+        this.newProject.projectID = null;
+        this.newProject.projectName = null;
+        this.newProject.dateOfStart = null;
+        this.newProject.teamSize = null;
+        this.newProject.active = false;
+        this.newProject.clientLocationID = null;
+        this.newProject.status = null;
+
+        $("#newFormCancel").trigger("click");
+      }, (error) =>
+      {
+        console.log(error);
+      });
+    }
+  }
+
+
   addNewProject():void{
-    this.newProject.clientLocation.clientLocationID = 0;
-    this.projctService.insertProject(this.newProject).subscribe((response)=>{
+
+    if (this.newForm.valid) {
+      this.newProject.clientLocation.clientLocationID = 0;
+    this.projectService.insertProject(this.newProject).subscribe((response)=>{
       //this.projects.push(this.newProject) its not recomded because next time when you assign 
       //this.newProject.projectID = null, the same null value will automatically aafected in the 
       //recomeded to create a new obj of classand copy all data from response to obj
@@ -85,57 +133,69 @@ clientLocations : ClientLocation[] = []
       this.newProject.active=false;
       this.newProject.status=null;
       this.newProject.clientLocationID=null;
-      this.newProject.clientLocation=null;
+
+      $("#newFormCancel").trigger("click");
     },
       (error:any)=>{console.log(error)});
+    }
+    
   }
   // index:number -> to get the row for which user will clicks on edit button
   onEditClick(event:any, index:number){
-    this.editProject.projectID=this.projects[index].projectID;
+    this.editForm.resetForm();
+    setTimeout(() => {
+      this.editProject.projectID=this.projects[index].projectID;
     this.editProject.projectName = this.projects[index].projectName;
     this.editProject.dateOfStart = this.projects[index].dateOfStart.split("/").reverse().join("-");
     this.editProject.active = this.projects[index].active;
+    this.editProject.teamSize = this.projects[index].teamSize;
     this.editProject.status = this.projects[index].status;
     this.editProject.clientLocationID = this.projects[index].clientLocationID;
     this.editProject.clientLocation.teamSize = this.projects[index].clientLocation;
     this.editIndex=index;
 
+    }, 100);
   }
   updateProject(){
-    this.projctService.updateProject(this.editProject).subscribe((response)=>{
-      var obj: Project = new Project();
-      obj.projectID = response.projectID;
-      obj.projectName = response.projectName;
-      obj.dateOfStart = response.dateOfStart;
-      obj.teamSize = response.teamSize;
-      obj.active = response.active;
-      obj.clientLocationID= response.clientLocationID;
-      obj.clientLocation = response.clientLocation;
-      obj.status= response.status;
-      this.projects[this.editIndex] = obj;
+    if (this.editForm.valid) {
+      this.projectService.updateProject(this.editProject).subscribe((response : Project)=>{
+        var obj: Project = new Project();
+        obj.projectID = response.projectID;
+        obj.projectName = response.projectName;
+        obj.dateOfStart = response.dateOfStart;
+        obj.teamSize = response.teamSize;
+        obj.active = response.active;
+        obj.clientLocationID= response.clientLocationID;
+        obj.clientLocation = response.clientLocation;
+        obj.status= response.status;
+        this.projects[this.editIndex] = obj;
+  
+        //Clearing field
+  
+        this.editProject.dateOfStart=null;
+        this.editProject.projectID=null;
+        this.editProject.projectName=null;
+        this.editProject.teamSize=null;
 
-      //Clearing field
-
-      this.editProject.dateOfStart=null;
-      this.editProject.projectID=null;
-      this.editProject.projectName=null;
-      this.editProject.teamSize=null;
-
-    },
-    (error)=>{console.log(error)});
+        $("#editFormCancel").trigger("click");
+  
+      },
+      (error)=>{console.log(error)});
+    }
   }
-  onDeleteClick(event,index:number){
+  onDeleteClick(event: any,index:number){
+    this.deleteIndex=index;
     this.deleteProject.projectID=this.projects[index].projectID;
     this.deleteProject.projectName = this.projects[index].projectName;
     this.deleteProject.dateOfStart = this.projects[index].dateOfStart;
     this.deleteProject.teamSize = this.projects[index].teamSize;
 
-    this.deleteIndex=index;
+    
 
 
   }
   onDeleteConfirm(){
-this.projctService.deleteProject(this.deleteProject.projectID).subscribe(
+this.projectService.deleteProject(this.deleteProject.projectID).subscribe(
   (response)=>{
     this.projects.slice(this.deleteIndex,1);
     this.deleteProject.dateOfStart=null;
@@ -147,9 +207,14 @@ this.projctService.deleteProject(this.deleteProject.projectID).subscribe(
     console.log(error);}
     
 );
+this.projectService.gtAllProjects().subscribe(
+  (response: Project[]) =>
+  {
+    this.projects = response;
+  });
   }
 onSearchClick():void{
-this.projctService.searchProject(this.searchBy,this.searchText).subscribe(
+this.projectService.searchProject(this.searchBy,this.searchText).subscribe(
   (response:Project[])=>{
     this.projects=response;
   },
@@ -165,5 +230,7 @@ this.projctService.searchProject(this.searchBy,this.searchText).subscribe(
     this.newProject.projectName=null;
     this.newProject.teamSize=null;
   }
+
+  
 
 }

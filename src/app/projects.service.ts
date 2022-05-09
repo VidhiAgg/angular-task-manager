@@ -9,6 +9,7 @@ import { Project } from './project';
 export class ProjectsService {
 
 url: string ="http://localhost:9090/api/projects";
+urlPrefix: string = "http://localhost:9090";
 
 //httpClient is just a refrence variable, used to access the object of httpClient service
 //and private word make the property of current working service class
@@ -39,7 +40,7 @@ url: string ="http://localhost:9090/api/projects";
        return this.httpClient.get<Project[]>(this.url,{headers: headers, responseType:"json"})
 */
 //other method include using HTTPInterceptors
-    return this.httpClient.get<Project[]>(this.url,{responseType:"json"})
+    return this.httpClient.get<Project[]>(this.urlPrefix + "/api/projects",{responseType:"json"})
     .pipe(map(
       (data: Project[])=>
       {
@@ -52,23 +53,28 @@ url: string ="http://localhost:9090/api/projects";
     )); // this method returns an observable of project array type
 
   }
-  insertProject(newProject:Project):Observable<Project>{
-    var requestHeader = new HttpHeaders();
-    requestHeader.set("X-XSRF-TOKEN", sessionStorage['XSRFRequestToken']);
-    return this.httpClient.post<Project>(this.url,newProject,{headers: requestHeader ,responseType:"json"});
+  insertProject(newProject: Project): Observable<Project>
+  {
+    var requestHeaders = new HttpHeaders();
+    requestHeaders = requestHeaders.set("X-XSRF-TOKEN", sessionStorage['XSRFRequestToken']);
+    return this.httpClient.post<Project>(this.urlPrefix + "/api/projects", newProject, { headers: requestHeaders, responseType: "json" });
   }
+  
   //Observable<Project> ->promise that we are going to return a project object after completion of ajax request
-  updateProject(exsistingProject:Project):Observable<Project>{
-    //{responseType:"json"} indicates angular converts the response automatically into respective object 
+  
+  //{responseType:"json"} indicates angular converts the response automatically into respective object 
     //after receing resonse from server
-    return this.httpClient.put<Project>(this.url,exsistingProject,{responseType:"json"});
+  updateProject(exsistingProject:Project):Observable<Project>
+  {
+    
+    return this.httpClient.put<Project>(this.urlPrefix + "/api/projects",exsistingProject,{responseType:"json"});
   }
   searchProject(searchBy: string, searchText: string):Observable<Project[]>{
-    return this.httpClient.get<Project[]>(this.url+"/search/"+searchBy+"/"+searchText,{responseType:"json"});
+    return this.httpClient.get<Project[]>(this.urlPrefix + "/api/projects/search/" + searchBy + "/" + searchText,{responseType:"json"});
   }
 
   //returns an observable of string
   deleteProject(projectId: number):Observable<string>{
-    return this.httpClient.delete<string>(this.url+"?ProjectID="+projectId);
+    return this.httpClient.delete<string>(this.urlPrefix + "/api/projects?ProjectID=" +projectId);
   }
 }
