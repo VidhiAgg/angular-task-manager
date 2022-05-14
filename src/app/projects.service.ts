@@ -17,13 +17,13 @@ urlPrefix: string = "http://localhost:9090";
       
     }
 
- // by using obs u mean that u are ready to return an array of projects tht is recived from server as response
+ // by using obs u mean that u are ready to return an array of projects that is recived from server as response
   gtAllProjects():Observable<Project[]>{
 
      /* One method, send indivually the token
-        * for all, subsequent request, where the authenticatio is required, You require 
+        * for all, subsequent request, where the authentication is required, You require 
         * to submitt the same token as a part of request header
-        *  for ex, while making equest ti "api/projects" in he "project" service,
+        *  for ex, while making request to "api/projects" in the "project" service,
         * we require to add the JWT toke into a request header 
         * called "authorization" with a prefix called "Bearer"
         */
@@ -75,6 +75,6 @@ urlPrefix: string = "http://localhost:9090";
 
   //returns an observable of string
   deleteProject(projectId: number):Observable<string>{
-    return this.httpClient.delete<string>(this.urlPrefix + "/api/projects?ProjectID=" +projectId);
+    return this.httpClient.delete<string>(this.urlPrefix + "/api/projects?ProjectID=" + projectId);
   }
 }

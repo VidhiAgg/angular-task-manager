@@ -19,7 +19,7 @@ export class JwtUnauthorizedInterceptorService implements HttpInterceptor {
         if (event instanceof HttpResponse)
         {
           //do something with response
-          //cam convert into camel case
+          //can convert into camel case
         }
       },
       (error : any)=>{

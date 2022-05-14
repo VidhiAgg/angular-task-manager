@@ -166,13 +166,15 @@
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Team Size</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                                         <input type="text" [(ngModel)]="newProject.teamSize" name="ProjectTeamSize"
-                                            class="form-control" id="txtProjectSize" required="required" pattern="^[1-9]*$" maxlength="5" #newTeamSize = "ngModel"
-                                            [ngClass]="{'is-invalid': newTeamSize.invalid && (newTeamSize.dirty || newTeamSize.touched || 
-                                                newForm.submitted),'is-valid': newTeamSize.valid && (newTeamSize.dirty || newTeamSize.touched || 
-                                                newForm.submitted) }">
+                                            class="form-control" id="txtProjectSize" required="required" pattern="^[0-9]*$" maxlength="7" #newTeamSize = "ngModel"
+                                            appTeamSizeValidator ="5" [ngClass]="{'is-invalid': newTeamSize.invalid && (newTeamSize.dirty || newTeamSize.touched 
+                                            || newForm.submitted),'is-valid': newTeamSize.valid && (newTeamSize.dirty || newTeamSize.touched || newForm.submitted) }">
  
                                          <span class="text-danger" *ngIf="newTeamSize.invalid && (newProjectID.dirty || newTeamSize.touched || 
                                          newForm.submitted) && newTeamSize.errors!['pattern']"> Team size should be number</span>
+                                        
+                                         <span class="text-danger" *ngIf="newTeamSize.invalid && (newProjectID.dirty || newTeamSize.touched || 
+                                         newForm.submitted) && newTeamSize.errors!['divisible']"> Team size should be divisible by 5</span>
                                         
                                     </div>
                                 </div>
@@ -328,19 +330,23 @@
                
                                     </div>
                                 </div>
+
                                 <div class="form-group row">
                                     <label for="txtEditProjectSize"
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project Size</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                                         <input type="text" [(ngModel)]="editProject.teamSize" name="ProjectTeamSize"
                                             class="form-control" id="txtEditProjectSize"
-                                            required="required" pattern="^[1-9]*$" maxlength="5" #editDateOfStart = "ngModel"
-                                            [ngClass]="{'is-invalid': editDateOfStart.invalid && (editDateOfStart.dirty || editDateOfStart.touched || 
-                                                editForm.submitted),'is-valid': editDateOfStart.valid && (editDateOfStart.dirty || editDateOfStart.touched || 
+                                            required="required" pattern="^[0-9]*$" maxlength="7" appTeamSizeValidator="5" #editTeamSize = "ngModel" 
+                                            [ngClass]="{'is-invalid': editTeamSize.invalid && (editTeamSize.dirty || editTeamSize.touched || 
+                                                editForm.submitted),'is-valid': editTeamSize.valid && (editTeamSize.dirty || editTeamSize.touched || 
                                                 editForm.submitted) }">
  
-                                         <span class="text-danger" *ngIf="editDateOfStart.invalid && (editProjectID.dirty || editDateOfStart.touched || 
-                                         editForm.submitted) && editDateOfStart.errors!['pattern']"> Team size should be number</span>
+                                         <span class="text-danger" *ngIf="editTeamSize.invalid && (editTeamSize.dirty || editTeamSize.touched || 
+                                         editForm.submitted) && editTeamSize.errors!['pattern']"> Team size should be number</span>
+                                        
+                                         <span class="text-danger" *ngIf="editTeamSize.invalid && (editTeamSize.dirty || editTeamSize.touched || 
+                                         editForm.submitted) && editTeamSize.errors!['divisible']"> Team size should be DIVISIBLE BY 5. </span>
                                         
                                     </div>
                                 </div>
