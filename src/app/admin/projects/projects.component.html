@@ -87,7 +87,7 @@
             </div>
         </div>
         
-        <form #newForm = "ngForm" novalidate="novalidate">
+        <form #newForm = "ngForm" novalidate="novalidate" appClientLocationServiceValidator>
         <div class="class container" p-5>
             <div class="modal fade" id="addModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
                 aria-labelledby="addModalLabel" aria-hidden="true">
@@ -105,7 +105,7 @@
                                 <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                                 <input type="text" class="form-control" name="ProjectID"
                                             [(ngModel)]="newProject.projectID" id="txtProjectId" required="required" pattern="^[0-9]*$" 
-                                            #newProjectID = "ngModel"
+                                            #newProjectID = "ngModel" appProjectIDUniqueValidator
                                             [ngClass]="{'is-invalid': newProjectID.invalid && (newProjectID.dirty || newProjectID.touched || 
                                                 newForm.submitted),'is-valid': newProjectID.valid && (newProjectID.dirty || newProjectID.touched || 
                                                 newForm.submitted) }">
@@ -115,6 +115,10 @@
                                         
                                          <span class="text-danger" *ngIf="newProjectID.invalid && (newProjectID.dirty || newProjectID.touched || 
                                          newForm.submitted) && newProjectID.errors!['pattern']">Project Id should contain numbers only</span>
+
+                                         <span class="text-danger" *ngIf="newProjectID.invalid && (newProjectID.dirty || newProjectID.touched || 
+                                         newForm.submitted) && newProjectID.errors!['uniqueProjectID']">Project Id must be unique</span>
+                                     
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -232,6 +236,10 @@
                                         <span class="text-danger" *ngIf="newClientLocation.invalid && (newClientLocation.dirty || newClientLocation.touched || 
                                          newForm.submitted) && newClientLocation.errors!['required']">Please select client location</span>
                                         
+                                         <span class="text-danger" *ngIf="newForm.invalid && (newForm.dirty || newForm.touched || 
+                                         newForm.submitted) && (newForm.errors? newForm.errors!['clientLocationStatus']: false)">Support Projects are not allowed in tokyo</span>
+                                        
+
                                     </div>
                                 </div>
                            
@@ -250,7 +258,7 @@
         <!--Edit Project-->
 
         
-        <form #editForm = "ngForm" novalidate="novalidate">
+        <form #editForm = "ngForm" novalidate="novalidate" appClientLocationServiceValidator>
         <div class="class container" p-5>
             <div class="modal fade" id="updateModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
                 aria-labelledby="updateModalLabel" aria-hidden="true">
@@ -270,7 +278,7 @@
                                         <input type="text" class="form-control-plain-text" name="ProjectID"
                                             disabled="true" [(ngModel)]="editProject.projectID" id="txtEditProjectId"
                                             required="required" pattern="^[0-9]*$" 
-                                            #editProjectID = "ngModel"
+                                            #editProjectID = "ngModel" appProjectIDUniqueValidator
                                             [ngClass]="{'is-invalid': editProjectID.invalid && (editProjectID.dirty || editProjectID.touched || 
                                                 editForm.submitted),'is-valid': editProjectID.valid && (editProjectID.dirty || editProjectID.touched || 
                                                 editForm.submitted) }">
@@ -281,6 +289,10 @@
                                          <span class="text-danger" *ngIf="editProjectID.invalid && (editProjectID.dirty || editProjectID.touched || 
                                          editForm.submitted) && editProjectID.errors!['pattern']">Project Id should contain numbers only</span>
                                   
+                                         <span class="text-danger" *ngIf="editProjectID.invalid && (editProjectID.dirty || editProjectID.touched || 
+                                         editForm.submitted) && editProjectID.errors!['uniqueProjectID']">Project Id should be unique.</span>
+                                  
+
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -408,7 +420,9 @@
                                         <span class="text-danger" *ngIf="editClientLocation.invalid && (editClientLocation.dirty || editClientLocation.touched || 
                                         editForm.submitted) && editClientLocation.errors!['required']">Please select client location</span>
                                        
-
+                                        <span class="text-danger" *ngIf="editForm.invalid && (editForm.dirty || editForm.touched || 
+                                         editForm.submitted) && editForm.errors!['clientLocationStatus']">Support Projects are not allowed in tokyo</span>
+                                        
                                     </div>
                                 </div>
 

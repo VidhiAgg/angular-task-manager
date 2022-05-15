@@ -15,7 +15,7 @@ export class JwtInterceptorService  implements HttpInterceptor{
             or sometimes it is multiple projects
   next -> is of HTTPHandler type; 
           Represens the next intercept in case of multiple interceptor (if there, else represents HttpXhrHeader)
-  Observable<HttpEvent<any>> -> Retuen the type of intercept, which means that req is going to produce a series of
+  Observable<HttpEvent<any>> -> Return the type of intercept, which means that req is going to produce a series of
                               HttpResponse, HttpHeaderResponse etc
                           */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

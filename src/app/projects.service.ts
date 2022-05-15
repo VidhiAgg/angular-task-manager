@@ -77,4 +77,9 @@ urlPrefix: string = "http://localhost:9090";
   deleteProject(projectId: number):Observable<string>{
     return this.httpClient.delete<string>(this.urlPrefix + "/api/projects?ProjectID=" + projectId);
   }
+  getProjectByID(ProjectID: number):Observable<Project>
+  {
+    return this.httpClient.get<Project>(this.urlPrefix + "/api/projects/searchbyprojectid/" + ProjectID, {responseType:"json"});
+  
+  }
 }
