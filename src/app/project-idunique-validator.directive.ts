@@ -18,7 +18,7 @@ export class ProjectIDUniqueValidatorDirective implements AsyncValidator{
     return this.projectService.getProjectByID(control.value).pipe(map((existingProject: Project) =>
     {
       if (existingProject != null) {
-        return {uniqueProjectID:{valid:false}};
+        return {uniqueProjectID : {valid : false}};
       } 
       else {
         return null;

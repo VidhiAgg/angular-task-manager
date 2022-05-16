@@ -5,9 +5,11 @@ import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ProjectsComponent } from './admin/projects/projects.component';
 import { CanActiveGuardService } from './can-active-guard.service';
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'signup', component: SignUpComponent},
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService],data: {
     expectedRole : " admin" } },

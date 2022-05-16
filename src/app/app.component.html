@@ -32,7 +32,9 @@
         <!--<li class=" nav-item">
           <a href='#' [href]="myProperty">Hello</a>
       </li> -->
-     
+      <li class="nav-item" *ngIf="loginService.currentUserName == null">
+        <a class="nav-link" routerLink="signup">Sign Up</a>
+      </li>
   
     
 
