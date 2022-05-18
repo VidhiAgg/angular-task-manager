@@ -55,35 +55,11 @@
 
         </form>
         <div class="contanier mt-3">
-            <div class="">
-                <table class="table">
-                    <thead>
-                        <th>Project ID</th>
-                        <th>Project Name</th>
-                        <th>Project Start Date</th>
-                        <th>Team Size</th>
-                        <th>Client Location</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of projects let i=index" [ngClass]="{'text-muted' : !item.active}">
-                            <td>{{item.projectID}}</td>
-                            <td>{{item.projectName}}</td>
-                            <td>{{item.dateOfStart}}</td>
-                            <td>{{item.teamSize}}</td>
-                            <td>{{item.clientLocation.clientLocationName}}</td>
-                            <td>{{item.status}}</td>
-                            <td>
-                                <button class="btn btn-info" (click)="onEditClick($event,i)" data-toggle="modal"
-                                    data-target="#updateModal">Edit</button>&nbsp;
-                                <button class="btn btn-danger" (click)="onDeleteClick($event,i)" data-toggle="modal"
-                                    data-target="#deleteModal">Delete</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-4" *ngFor="let project of projects ; let i = index" [ngClass]="{'text-muted' : !project.active}">
+                <app-project [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,i)"
+                (deleteClick)="onDeleteClick($event,i)"></app-project>
+                </div>
             </div>
         </div>
         

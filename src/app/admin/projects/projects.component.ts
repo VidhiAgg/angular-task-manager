@@ -144,7 +144,7 @@ clientLocations : ClientLocation[] = []
   onEditClick(event:any, index:number){
     this.editForm.resetForm();
     setTimeout(() => {
-      this.editProject.projectID=this.projects[index].projectID;
+    this.editProject.projectID=this.projects[index].projectID;
     this.editProject.projectName = this.projects[index].projectName;
     this.editProject.dateOfStart = this.projects[index].dateOfStart.split("/").reverse().join("-");
     this.editProject.active = this.projects[index].active;
