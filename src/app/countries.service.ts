@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Country } from './country';
 
 @Injectable({
@@ -6,8 +8,9 @@ import { Country } from './country';
 })
 export class CountriesService {
 
-  constructor() { }
-  getCountries():Country[]
+  constructor(private httpClient: HttpClient) { }
+  //will be importing data from db for the list
+ /* getCountries():Country[]
   {
     return [
       new Country(1,"India"),
@@ -15,5 +18,12 @@ export class CountriesService {
       new Country(3,"USA"),
       new Country(4,"Japan")
     ];
+  }
+  */
+  getCountries():Observable<Country[]>
+  {
+    return this.httpClient.get<Country[]>("http://localhost:9090/api/countries", {
+      responseType : "json"
+    });
   }
 }

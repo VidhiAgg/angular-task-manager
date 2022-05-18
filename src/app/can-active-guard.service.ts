@@ -20,11 +20,11 @@ ActivatedRouteSnapshot -> if u want to read the details about the current workin
 */
     canActivate(route: ActivatedRouteSnapshot): boolean 
     {
-      // console.log(this.router.url)
+       console.log(this.router.url)
       var token = sessionStorage.getItem("currentUser")?JSON.parse(sessionStorage.getItem("currentUser")).token
       :null;
 
-      if (this.loginService.isAuthenticated() && this.jwtHelper.decodeToken(token).role != 
+      if (this.loginService.isAuthenticated() && this.jwtHelper.decodeToken(token).role == 
       route.data['expectedRole']) {
         console.log("hiiii in if part ");    return true; // the user can navigate to the particular route
         

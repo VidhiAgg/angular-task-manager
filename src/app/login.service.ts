@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map, Observable } from 'rxjs';
 import { LoginViewModel } from './login-view-model';
+import { SignUpViewModal } from './sign-up-view-modal';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  url:any="http://localhost:9090/authenticate";
+  url:any="http://localhost:9090";
 
   private httpClient : HttpClient;
 //HttpBackend -> represnts http Client w/o interceptors
@@ -23,8 +24,10 @@ export class LoginService {
   public login(loginView: LoginViewModel):Observable<any>{
     //represents the actual HttpClient w/o any interceptor i.e. 
     //the authorization req is not added for this req
+    //observe: Defines whether we want complete response or body only or events only.
+    //responseType: Defines response type such as arraybuffer, blob, json and text.
     this.httpClient = new HttpClient(this.httpBackend);
-    return this.httpClient.post<any>(this.url,loginView,{responseType:"json", observe: "response"})
+    return this.httpClient.post<any>(this.url+"/authenticate",loginView,{responseType:"json", observe: "response"})
     .pipe(map(response =>{
       if(response)
       {
@@ -65,5 +68,30 @@ export class LoginService {
       } else {
         return true;
       }
+    }
+
+    /**
+     * register that will recives the signUpModel as parameter
+     */
+    public register(signUpViewModel: SignUpViewModal):Observable<any>{
+       
+        this.httpClient = new HttpClient(this.httpBackend);
+        return this.httpClient.post<any>(this.url+"/register",signUpViewModel,{responseType:"json", observe: "response"})
+        .pipe(map(response =>{
+          if(response)
+          {
+            this.currentUserName=response.body.userName;
+            sessionStorage['currentUser'] = JSON.stringify(response.body);
+            sessionStorage['XSRFRequestToken'] = response.headers.get("XSRF-REQUEST-TOKEN")
+          }
+          return response.body;
+        }));
+      
+    }
+    getUserByEmail(email: string) :Observable<any>
+    {
+      this.httpClient = new HttpClient(this.httpBackend);
+      return this.httpClient.get<any>(this.url+"/api/getUserByEmail/" + email,{responseType:"json"});
+      
     }
 }

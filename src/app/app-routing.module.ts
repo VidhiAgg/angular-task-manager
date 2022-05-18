@@ -6,16 +6,19 @@ import { ProjectsComponent } from './admin/projects/projects.component';
 import { CanActiveGuardService } from './can-active-guard.service';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { TaskComponent } from './task/task.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'signup', component: SignUpComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService],data: {
-    expectedRole : " admin" } },
   { path: 'about', component: AboutComponent },
+ 
+  { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService],data: {
+    expectedRole : "Admin" } },
   { path: 'projects', component: ProjectsComponent, canActivate : [CanActiveGuardService],data: {
-    expectedRole : " admin" } }
+    expectedRole : "Admin" } },
+    {path: "task", component: TaskComponent, canActivate: [CanActiveGuardService], data: { expectedRole: "Employee" } },
  
   
 ];
