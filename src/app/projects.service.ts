@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import{HttpClient, HttpHeaders} from '@angular/common/http'
-import {  observable, Observable, Observer } from 'rxjs';
+import {  observable, Observable, Observer, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Project } from './project';
 
@@ -15,15 +15,13 @@ urlPrefix: string = "http://localhost:9090";
 
  //for using services for communication
   //hideDetails: boolean = false;
+/*
+Communiation using observable
 
   //create a variable called observable to represent  the Observable for communication
-  public myObservable: Observable<boolean>;
-//myObservers to represent all subscribers 
+  //public myObservable: Observable<boolean>;
+  //myObservers to represent all subscribers 
   public myObservers: Observer<boolean>[] = [];
-
-
-//httpClient is just a refrence variable, used to access the object of httpClient service
-//and private word make the property of current working service class
   constructor(private httpClient:HttpClient) {
       //whenever new subscriber is added RxJs automaticly pass its reference as a parameter called 'observer'
     this.myObservable = Observable.create((observer : Observer<boolean>)=>
@@ -32,6 +30,31 @@ urlPrefix: string = "http://localhost:9090";
       this.myObservers.push(observer);
 
     });
+    }
+    hideDetails: boolean = false; 
+    toggleDetails(){
+      //parent -> projectsComponent
+      //child -> project
+      //goal: togglemethod should be invoke in parent component
+      this.hideDetails = !this.hideDetails;
+      //notify the changes to the child component
+      //pass a notification to all observables by calling 'next'
+      for (let index = 0; index < this.myObservers.length; index++) {
+        this.myObservers[index].next(this.hideDetails);
+        
+      }
+    }
+
+*/
+//Communiation using subject
+public mySubject: Subject<boolean>;
+
+
+//httpClient is just a refrence variable, used to access the object of httpClient service
+//and private word make the property of current working service class
+  constructor(private httpClient:HttpClient) {
+      
+    this.mySubject = new Subject<boolean>();
     }
     
 
@@ -107,12 +130,8 @@ urlPrefix: string = "http://localhost:9090";
       //child -> project
       //goal: togglemethod should be invoke in parent component
       this.hideDetails = !this.hideDetails;
-      //notify the changes to the child component
-      //pass a notification to all observables by calling 'next'
-      for (let index = 0; index < this.myObservers.length; index++) {
-        this.myObservers[index].next(this.hideDetails);
-        
-      }
+        this.mySubject.next(this.hideDetails);
+
     }
 
  
