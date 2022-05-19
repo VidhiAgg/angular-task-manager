@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import{HttpClient, HttpHeaders} from '@angular/common/http'
-import {  Observable } from 'rxjs';
+import {  observable, Observable, Observer } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Project } from './project';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,13 +14,26 @@ urlPrefix: string = "http://localhost:9090";
 
 
  //for using services for communication
-  hideDetails: boolean = false;
+  //hideDetails: boolean = false;
+
+  //create a variable called observable to represent  the Observable for communication
+  public myObservable: Observable<boolean>;
+//myObservers to represent all subscribers 
+  public myObservers: Observer<boolean>[] = [];
+
 
 //httpClient is just a refrence variable, used to access the object of httpClient service
 //and private word make the property of current working service class
   constructor(private httpClient:HttpClient) {
-      
+      //whenever new subscriber is added RxJs automaticly pass its reference as a parameter called 'observer'
+    this.myObservable = Observable.create((observer : Observer<boolean>)=>
+    {
+      //add obsever to the array
+      this.myObservers.push(observer);
+
+    });
     }
+    
 
  // by using obs u mean that u are ready to return an array of projects that is recived from server as response
   gtAllProjects():Observable<Project[]>{
@@ -87,10 +101,19 @@ urlPrefix: string = "http://localhost:9090";
   
   }
 
-  toggleDetails(){
-    //parent -> projectsComponent
-    //child -> project
-    //goal: togglemethod should be invoke in parent component
-    this.hideDetails = !this.hideDetails;
-  }
+  hideDetails: boolean = false; 
+    toggleDetails(){
+      //parent -> projectsComponent
+      //child -> project
+      //goal: togglemethod should be invoke in parent component
+      this.hideDetails = !this.hideDetails;
+      //notify the changes to the child component
+      //pass a notification to all observables by calling 'next'
+      for (let index = 0; index < this.myObservers.length; index++) {
+        this.myObservers[index].next(this.hideDetails);
+        
+      }
+    }
+
+ 
 }

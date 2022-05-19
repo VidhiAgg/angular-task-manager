@@ -25,10 +25,19 @@ export class ProjectComponent implements OnInit {
 
   //for using viewChild for communication
   //hideDetails: boolean = false;
+
+  //for using observable as communicaion
+  hideDetails: boolean = false;
   
   constructor(public projectService: ProjectsService) { }
 
   ngOnInit(): void {
+    //will recive the boolean value as a parameter inthe arow
+    this.projectService.myObservable.subscribe((hide)=>{
+      this.hideDetails = hide;
+
+    });
+
   }
   onEditClick(event: any, i: any)
   {
