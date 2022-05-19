@@ -32,11 +32,17 @@ export class ProjectComponent implements OnInit {
   constructor(public projectService: ProjectsService) { }
 
   ngOnInit(): void {
-    //will recive the boolean value as a parameter inthe arow
+    /*
+    //will recive the boolean value as a parameter in the arow
     this.projectService.myObservable.subscribe((hide)=>{
       this.hideDetails = hide;
-
-    });
+    }); 
+    for Observable type comm.
+    */ 
+   // for subject type comm
+   this.projectService.mySubject.subscribe((hide)=>{
+    this.hideDetails = hide;
+  }); 
 
   }
   onEditClick(event: any, i: any)
