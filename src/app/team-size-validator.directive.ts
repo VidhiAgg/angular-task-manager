@@ -16,7 +16,8 @@ export class TeamSizeValidatorDirective implements Validators {
   validate(control:AbstractControl): ValidationErrors | null
   {
     let currentValue = control.value;
-    let isValid = currentValue % this.n == 0;
+   // let isValid = currentValue % this.n == 0;
+   let isValid = currentValue  != 0;
     if (isValid) {
       return null; //valid
     } else {

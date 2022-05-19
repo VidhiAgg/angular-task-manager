@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Project } from '../../project';
 import { ProjectsService } from '../..//projects.service';
 import { ClientLocation } from 'src/app/client-location';
 import { ClientLocationService } from 'src/app/client-location.service';
 import { NgForm } from '@angular/forms';
 import *as $ from "jquery";
+import { ProjectComponent } from '../project/project.component';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -29,8 +30,21 @@ searchText:string="";
  //in order to access the newForm based on the refernce name in component, we have to use viewChild.
 
  @ViewChild("newForm") newForm: NgForm; //property "newForm" is used to access the <form>tag, whichh is already created in  the template,
- // so that we can access all methd and properti
+ // so that we can access all methd and property
+
  @ViewChild("editForm") editForm: NgForm;
+
+
+//Adding a viewChild property that refers toggleDetails
+//@ViewChild("toggleDetail") toggleDetail: ProjectComponent; //for single instance only
+
+/*
+* creating multiple instances of the child component
+* when we will call toggleDetail we will represent all the instance
+*of the child and QueryList is used for that
+*/
+//@ViewChildren("toggleDetail") toggleDetail:QueryList <ProjectComponent>;
+
 clientLocations : ClientLocation[] = []
   constructor(private projectService: ProjectsService,
     private clientLocationService : ClientLocationService) { }
@@ -214,7 +228,20 @@ this.projectService.gtAllProjects().subscribe(
   });
   }
 onSearchClick():void{
-this.projectService.searchProject(this.searchBy,this.searchText).subscribe(
+  if(this.searchBy == null && this.searchText == null)
+  {
+    this.projectService.gtAllProjects().subscribe((response: Project[])=>
+    {
+      this.projects = response;
+    },
+    (error:any)=>{
+      console.log(error);
+    }
+    );
+  }
+else
+{
+  this.projectService.searchProject(this.searchBy,this.searchText).subscribe(
   (response:Project[])=>{
     this.projects=response;
   },
@@ -223,6 +250,22 @@ this.projectService.searchProject(this.searchBy,this.searchText).subscribe(
   }
  );
 }
+}
+
+/*onHideShowDetails(event){
+  //this.toggleDetail.toggleDetails()
+  let projectDetails = this.toggleDetail.toArray();
+  for (let i = 0; i <projectDetails.length; i++) {
+    projectDetails[i].toggleDetails();
+    
+  }
+}*/
+onHideShowDetails(event){
+  this.projectService.toggleDetails();
+}
+
+
+
 
   clearFields():void{
     this.newProject.dateOfStart=null;
@@ -230,6 +273,7 @@ this.projectService.searchProject(this.searchBy,this.searchText).subscribe(
     this.newProject.projectName=null;
     this.newProject.teamSize=null;
   }
+
 
   
 

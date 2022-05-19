@@ -11,6 +11,10 @@ export class ProjectsService {
 url: string ="http://localhost:9090/api/projects";
 urlPrefix: string = "http://localhost:9090";
 
+
+ //for using services for communication
+  hideDetails: boolean = false;
+
 //httpClient is just a refrence variable, used to access the object of httpClient service
 //and private word make the property of current working service class
   constructor(private httpClient:HttpClient) {
@@ -81,5 +85,12 @@ urlPrefix: string = "http://localhost:9090";
   {
     return this.httpClient.get<Project>(this.urlPrefix + "/api/projects/searchbyprojectid/" + ProjectID, {responseType:"json"});
   
+  }
+
+  toggleDetails(){
+    //parent -> projectsComponent
+    //child -> project
+    //goal: togglemethod should be invoke in parent component
+    this.hideDetails = !this.hideDetails;
   }
 }

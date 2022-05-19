@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
 import { Project } from 'src/app/project';
+import { ProjectsService } from 'src/app/projects.service';
 
 
 @Component({
@@ -21,7 +22,11 @@ export class ProjectComponent implements OnInit {
 //and raise them 
   @Output() editClick = new EventEmitter();
   @Output() deleteClick = new EventEmitter();
-  constructor() { }
+
+  //for using viewChild for communication
+  //hideDetails: boolean = false;
+  
+  constructor(public projectService: ProjectsService) { }
 
   ngOnInit(): void {
   }
@@ -34,4 +39,10 @@ export class ProjectComponent implements OnInit {
   {
     this.deleteClick.emit({event, i});
   }
+  /*toggleDetails(){
+    //parent -> projectsComponent
+    //child -> project
+    //goal: togglemethod should be invoke in parent component
+    this.hideDetails = !this.hideDetails;
+  }*/
 }

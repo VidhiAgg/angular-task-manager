@@ -13,8 +13,11 @@
 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 " style="text-align-last:right;float:right">
-                <button class="btn btn-danger" data-toggle="modal" data-target="#addModal" (click)="onNewClick($event)">Create Project</button>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#addModal" (click)="onNewClick($event)">Create Project</button>&nbsp;
+                <button class="btn btn-secondary"(click)="onHideShowDetails($event)">Hide/Show Details</button>
+
             </div>
+           
         </div>
 
         <form class="form-inline ">
@@ -24,7 +27,7 @@
                 <label for="searchBy" class="col-form-label col-sm-4 col-lg-4 col-md-4 col-xs-4 "
                     style="margin-left: -6%;">Search By:</label>
                 <div class="col-sm-8 col-lg-8 col-md-8 col-xs-8">
-                    <select class="form-control" style="width: 125%;" id="searchBy" name="searchBy"
+                    <select class="form-control" style="width: 120%;" id="searchBy" name="searchBy"
                         [(ngModel)]="searchBy">
 
                         <option value="ProjectID">Project ID</option>
@@ -37,28 +40,29 @@
 
             <div class="form-group row col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <!-- col-sm-8 col-lg-8 col-md-8 col-xs-8"-->
-                <label for="searchText" class="col-form-label col-sm-4 col-lg-4 col-md-4 col-xs-4 text-right ">Search
-                    Text</label>
+                <label for="searchText" class="col-form-label col-sm-4 col-lg-4 col-md-4 col-xs-4 text-right " style="margin-left: -6%; margin-right: -11%;">Search
+                    Text:</label>
                 <div class="input-group col-sm-7 col-lg-7 col-md-7 col-xs-7">
-                    <input type="text" class="form-control" id="searchText" name="searchText" [(ngModel)]="searchText">
+                    <input type="text" style="width: 50%;" placeholder="Type here" class="form-control" id="searchText" name="searchText" [(ngModel)]="searchText">
 
-                    <div class="input-group-append">
+                    <div class="input-group-append" style="width: -1%;">
                         <span class="input-group-text"><i class="fa fa-search"></i></span>
                     </div>
                 </div>
 
             </div>
 
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align-last:right;float:right">
-                <button class="btn btn-success" (click)="onSearchClick()">Search</button>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align-last:right;float:right;margin-left: -7%;">
+                <button class="btn btn-success" style="width: 160%;text-align: center;text-align-last: center;" (click)="onSearchClick()">Search</button>
             </div>
 
         </form>
         <div class="contanier mt-3">
             <div class="row">
                 <div class="col-md-4" *ngFor="let project of projects ; let i = index" [ngClass]="{'text-muted' : !project.active}">
-                <app-project [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,i)"
-                (deleteClick)="onDeleteClick($event,i)"></app-project>
+                <app-project #toggleDetail [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,i)"
+                (deleteClick)="onDeleteClick($event,i)"> <!--Subscribing to parent component-->
+            </app-project>
                 </div>
             </div>
         </div>
@@ -154,7 +158,7 @@
                                          newForm.submitted) && newTeamSize.errors!['pattern']"> Team size should be number</span>
                                         
                                          <span class="text-danger" *ngIf="newTeamSize.invalid && (newProjectID.dirty || newTeamSize.touched || 
-                                         newForm.submitted) && newTeamSize.errors!['divisible']"> Team size should be divisible by 5</span>
+                                         newForm.submitted) && newTeamSize.errors!['divisible']"> Team size can be any except 0</span>
                                         
                                     </div>
                                 </div>
@@ -334,7 +338,7 @@
                                          editForm.submitted) && editTeamSize.errors!['pattern']"> Team size should be number</span>
                                         
                                          <span class="text-danger" *ngIf="editTeamSize.invalid && (editTeamSize.dirty || editTeamSize.touched || 
-                                         editForm.submitted) && editTeamSize.errors!['divisible']"> Team size should be DIVISIBLE BY 5. </span>
+                                         editForm.submitted) && editTeamSize.errors!['divisible']"> Team size can be any except 0. </span> <!--Custom validator-->
                                         
                                     </div>
                                 </div>
