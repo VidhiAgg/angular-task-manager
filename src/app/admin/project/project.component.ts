@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output,EventEmitter, ContentChild } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter, ContentChild, ContentChildren, QueryList } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/project';
 import { ProjectsService } from 'src/app/projects.service';
@@ -66,17 +66,27 @@ export class ProjectComponent implements OnInit {
   ngOnDestroy(){
     this.mySubscriptio.unsubscribe();
   }
-  // accessing method of grand-child component in child component
-  @ContentChild("selectionBox")selectionBox : CheckBoxPrinterComponent | any = null;
+  //for single instance
+  //<app-check-box-printer #selectionBox></app-check-box-printer> </app-project>
+ // @ContentChild("selectionBox")selectionBox : CheckBoxPrinterComponent | any = null;
  
-  
+ //for multiple instance and add queryList as we are using multiple instance
+ @ContentChildren("selectionBox")selectionBoxes :QueryList <CheckBoxPrinterComponent> | any = null;
+ 
+    // accessing method of grand-child component in child component
   isAllChecked(value: boolean){
+    //covert QuerList to array
+    let selectionBox = this.selectionBoxes.toArray();
     if(value){
-    this.selectionBox.check();
+    for (let i = 0; i < selectionBox.length; i++) {
+     selectionBox[i].check();
     }
+  }
   else
   {
-      this.selectionBox.unCheck();
+    for (let i = 0; i < selectionBox.length; i++) {
+      selectionBox[i].unCheck();
+      }
   }
-}
+  }
 }
