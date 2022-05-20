@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Project } from '../../project';
 import { ProjectsService } from '../..//projects.service';
 import { ClientLocation } from 'src/app/client-location';
@@ -33,6 +33,7 @@ searchText:string="";
  // so that we can access all methd and property
 
  @ViewChild("editForm") editForm: NgForm;
+
 
 
 //Adding a viewChild property that refers toggleDetails
@@ -78,9 +79,23 @@ clientLocations : ClientLocation[] = []
     );
    
   }
+  @ViewChild("#edPrjName") edPrjName : ElementRef;
+  setFocus(){
+    setTimeout(() =>{
+      this.edPrjName.nativeElement.focus();
+  },600);
+  }
 
+  @ViewChild("prjID") prjID : ElementRef;  
+
+/*
+nativeElement represents the actual object as per browser DOM
+*/
   onNewClick(event){
     this.newForm.resetForm();
+    setTimeout(() =>{
+        this.prjID.nativeElement.focus();
+    },600);
   }
   onSaveClick()
   {
@@ -154,9 +169,14 @@ clientLocations : ClientLocation[] = []
     }
     
   }
+ 
+  
   // index:number -> to get the row for which user will clicks on edit button
   onEditClick(event:any, index:number){
+    this.setFocus();
+
     this.editForm.resetForm();
+    
     setTimeout(() => {
     this.editProject.projectID=this.projects[index].projectID;
     this.editProject.projectName = this.projects[index].projectName;
@@ -167,6 +187,7 @@ clientLocations : ClientLocation[] = []
     this.editProject.clientLocationID = this.projects[index].clientLocationID;
     this.editProject.clientLocation.teamSize = this.projects[index].clientLocation;
     this.editIndex=index;
+    this.edPrjName.nativeElement.focus();
 
     }, 100);
   }
@@ -264,7 +285,18 @@ onHideShowDetails(event){
   this.projectService.toggleDetails();
 }
 
+//fpr gloabal checkbox
+isAllChecked: boolean = false;
+//for accesing all instance of child
+@ViewChildren("toggleDetail") projs:QueryList <ProjectComponent>;
 
+isAllCheckedChange(event : any)
+{
+  let proj = this.projs.toArray();
+  for (let i = 0; i <proj.length; i++) {
+    proj[i].isAllChecked(this.isAllChecked);
+}
+}
 
 
   clearFields():void{

@@ -2,7 +2,7 @@
 
     <div class="d-flex flex-column">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12  p-3">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 "
+            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 "
                 style="text-align-last:left;float:left;">
                 <h1>
                     <span style="margin-left:-25px;">Projects </span>
@@ -15,9 +15,17 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 " style="text-align-last:right;float:right">
                 <button class="btn btn-danger" data-toggle="modal" data-target="#addModal" (click)="onNewClick($event)">Create Project</button>&nbsp;
                 <button class="btn btn-secondary"(click)="onHideShowDetails($event)">Hide/Show Details</button>
+                
 
             </div>
-           
+            <div class="col-1 custom-contol custom-checkbox">
+                <input type="checkbox"  value = "true" name="isAllChecked" 
+                id="isAllChecked" [(ngModel)]="isAllChecked" class="custom-control-input" (change)="isAllCheckedChange($event)">
+                <label class="custom-control-label" for="isAllChecked">Select All</label>
+            </div>
+
+
+            
         </div>
 
         <form class="form-inline ">
@@ -62,6 +70,8 @@
                 <div class="col-md-4" *ngFor="let project of projects ; let i = index" [ngClass]="{'text-muted' : !project.active}">
                 <app-project #toggleDetail [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,i)"
                 (deleteClick)="onDeleteClick($event,i)"> <!--Subscribing to parent component-->
+                <app-check-box-printer #selectionBox></app-check-box-printer> <!--giving referne variable name-->
+                <app-check-box-printer #selectionBox></app-check-box-printer>
             </app-project>
                 </div>
             </div>
@@ -85,7 +95,7 @@
                                 <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                                 <input type="text" class="form-control" name="ProjectID"
                                             [(ngModel)]="newProject.projectID" id="txtProjectId" required="required" pattern="^[0-9]*$" 
-                                            #newProjectID = "ngModel" appProjectIDUniqueValidator
+                                            #newProjectID = "ngModel" #prjID placeholder="ProjectID" appProjectIDUniqueValidator 
                                             [ngClass]="{'is-invalid': newProjectID.invalid && (newProjectID.dirty || newProjectID.touched || 
                                                 newForm.submitted),'is-valid': newProjectID.valid && (newProjectID.dirty || newProjectID.touched || 
                                                 newForm.submitted) }">
@@ -257,7 +267,7 @@
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                                         <input type="text" class="form-control-plain-text" name="ProjectID"
                                             disabled="true" [(ngModel)]="editProject.projectID" id="txtEditProjectId"
-                                            required="required" pattern="^[0-9]*$" 
+                                            required="required" pattern="^[0-9]*$"  
                                             #editProjectID = "ngModel" appProjectIDUniqueValidator
                                             [ngClass]="{'is-invalid': editProjectID.invalid && (editProjectID.dirty || editProjectID.touched || 
                                                 editForm.submitted),'is-valid': editProjectID.valid && (editProjectID.dirty || editProjectID.touched || 
@@ -280,10 +290,10 @@
                                         class="col-sm-4 col-lg-4 col-md-4 col-xs-4 col-form-label">Project Name</label>
                                     <div class="col-sm-6 col-lg-6 col-md-6 col-xs-6">
                                         <input type="text" name="ProjectName" [(ngModel)]="editProject.projectName"
-                                            class="form-control" id="txtEditProjectName"
+                                            class="form-control" id="txtEditProjectName" #edPrjName
 
                                             required="required" pattern="^[A-Za-z0-9 /-]*$"
-                                             minlength="5" maxlength="30" #editProjectName = "ngModel"
+                                             minlength="5" maxlength="30" #editProjectName = "ngModel" 
                                             [ngClass]="{'is-invalid': editProjectName.invalid && (editProjectName.dirty || editProjectName.touched || 
                                                 editForm.submitted),'is-valid': editProjectName.valid && (editProjectName.dirty || editProjectName.touched || 
                                                 editForm.submitted) }">

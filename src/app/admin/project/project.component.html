@@ -1,7 +1,15 @@
 <div class="card card-primary">
     <div class="card-header">
-        <div>#{{project.projectID}}</div>
-        <h5>{{project.projectName}}</h5>
+        <div class="row">
+            <div class="col-11">
+                <div>#{{project.projectID}}</div>
+                <h5>{{project.projectName}}</h5>
+            </div>
+            <div class="col-1">
+                <ng-content></ng-content>
+            </div>
+        </div>
+        
     </div>
     <div class="card-body">
     <table class="tabble table-borderless" [hidden]="hideDetails"> <!--hide the table if true-->

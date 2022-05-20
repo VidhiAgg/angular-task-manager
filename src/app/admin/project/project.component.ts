@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter, ContentChild, ContentChildren, QueryList } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Project } from 'src/app/project';
 import { ProjectsService } from 'src/app/projects.service';
+import { CheckBoxPrinterComponent } from '../check-box-printer/check-box-printer.component';
 
 
 @Component({
@@ -28,7 +30,7 @@ export class ProjectComponent implements OnInit {
 
   //for using observable as communicaion
   hideDetails: boolean = false;
-  
+  mySubscriptio :  Subscription;
   constructor(public projectService: ProjectsService) { }
 
   ngOnInit(): void {
@@ -40,7 +42,8 @@ export class ProjectComponent implements OnInit {
     for Observable type comm.
     */ 
    // for subject type comm
-   this.projectService.mySubject.subscribe((hide)=>{
+   //due to perfomance issue, recommnded to store subscription inside mySubscription prop
+   this.mySubscriptio =  this.projectService.mySubject.subscribe((hide)=>{
     this.hideDetails = hide;
   }); 
 
@@ -60,4 +63,30 @@ export class ProjectComponent implements OnInit {
     //goal: togglemethod should be invoke in parent component
     this.hideDetails = !this.hideDetails;
   }*/
+  ngOnDestroy(){
+    this.mySubscriptio.unsubscribe();
+  }
+  //for single instance
+  //<app-check-box-printer #selectionBox></app-check-box-printer> </app-project>
+ // @ContentChild("selectionBox")selectionBox : CheckBoxPrinterComponent | any = null;
+ 
+ //for multiple instance and add queryList as we are using multiple instance
+ @ContentChildren("selectionBox")selectionBoxes :QueryList <CheckBoxPrinterComponent> | any = null;
+ 
+    // accessing method of grand-child component in child component
+  isAllChecked(value: boolean){
+    //covert QuerList to array
+    let selectionBox = this.selectionBoxes.toArray();
+    if(value){
+    for (let i = 0; i < selectionBox.length; i++) {
+     selectionBox[i].check();
+    }
+  }
+  else
+  {
+    for (let i = 0; i < selectionBox.length; i++) {
+      selectionBox[i].unCheck();
+      }
+  }
+  }
 }

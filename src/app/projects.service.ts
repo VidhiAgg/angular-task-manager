@@ -53,7 +53,7 @@ public mySubject: Subject<boolean>;
 //httpClient is just a refrence variable, used to access the object of httpClient service
 //and private word make the property of current working service class
   constructor(private httpClient:HttpClient) {
-      
+
     this.mySubject = new Subject<boolean>();
     }
     
@@ -130,6 +130,7 @@ public mySubject: Subject<boolean>;
       //child -> project
       //goal: togglemethod should be invoke in parent component
       this.hideDetails = !this.hideDetails;
+      //subject do all that observable thimg internally, so no need for next
         this.mySubject.next(this.hideDetails);
 
     }
