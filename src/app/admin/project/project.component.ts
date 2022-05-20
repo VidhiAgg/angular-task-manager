@@ -1,6 +1,8 @@
-import { Component, Input, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter, ContentChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Project } from 'src/app/project';
 import { ProjectsService } from 'src/app/projects.service';
+import { CheckBoxPrinterComponent } from '../check-box-printer/check-box-printer.component';
 
 
 @Component({
@@ -28,7 +30,7 @@ export class ProjectComponent implements OnInit {
 
   //for using observable as communicaion
   hideDetails: boolean = false;
-  
+  mySubscriptio :  Subscription;
   constructor(public projectService: ProjectsService) { }
 
   ngOnInit(): void {
@@ -40,7 +42,8 @@ export class ProjectComponent implements OnInit {
     for Observable type comm.
     */ 
    // for subject type comm
-   this.projectService.mySubject.subscribe((hide)=>{
+   //due to perfomance issue, recommnded to store subscription inside mySubscription prop
+   this.mySubscriptio =  this.projectService.mySubject.subscribe((hide)=>{
     this.hideDetails = hide;
   }); 
 
@@ -60,4 +63,20 @@ export class ProjectComponent implements OnInit {
     //goal: togglemethod should be invoke in parent component
     this.hideDetails = !this.hideDetails;
   }*/
+  ngOnDestroy(){
+    this.mySubscriptio.unsubscribe();
+  }
+  // accessing method of grand-child component in child component
+  @ContentChild("selectionBox")selectionBox : CheckBoxPrinterComponent | any = null;
+ 
+  
+  isAllChecked(value: boolean){
+    if(value){
+    this.selectionBox.check();
+    }
+  else
+  {
+      this.selectionBox.unCheck();
+  }
+}
 }

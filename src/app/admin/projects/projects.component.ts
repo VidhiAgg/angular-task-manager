@@ -264,8 +264,18 @@ onHideShowDetails(event){
   this.projectService.toggleDetails();
 }
 
+//fpr gloabal checkbox
+isAllChecked: boolean = false;
+//for accesing all instance of child
+@ViewChildren("toggleDetail") projs:QueryList <ProjectComponent>;
 
-
+isAllCheckedChange(event : any)
+{
+  let proj = this.projs.toArray();
+  for (let i = 0; i <proj.length; i++) {
+    proj[i].isAllChecked(this.isAllChecked);
+}
+}
 
   clearFields():void{
     this.newProject.dateOfStart=null;

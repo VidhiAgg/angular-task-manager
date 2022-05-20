@@ -17,7 +17,13 @@
                 <button class="btn btn-secondary"(click)="onHideShowDetails($event)">Hide/Show Details</button>
 
             </div>
-           
+            <div class="col-1 custom-contol custom-checkbox">
+                <input type="checkbox"  value = "true" name="isAllChecked" 
+                id="isAllChecked" [(ngModel)]="isAllChecked" class="custom-control-input" (change)="isAllCheckedChange($event)">
+                <label class="custom-control-label" for="isAllChecked"></label>
+            </div>
+
+            
         </div>
 
         <form class="form-inline ">
@@ -62,6 +68,7 @@
                 <div class="col-md-4" *ngFor="let project of projects ; let i = index" [ngClass]="{'text-muted' : !project.active}">
                 <app-project #toggleDetail [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,i)"
                 (deleteClick)="onDeleteClick($event,i)"> <!--Subscribing to parent component-->
+                <app-check-box-printer #selectionBox></app-check-box-printer> <!--giving referne variable name-->
             </app-project>
                 </div>
             </div>
