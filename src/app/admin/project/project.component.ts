@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output,EventEmitter, ContentChild, ContentChildren, QueryList } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter, ContentChild, ContentChildren, QueryList, DoCheck, AfterContentChecked, AfterContentInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/project';
 import { ProjectsService } from 'src/app/projects.service';
@@ -10,7 +10,8 @@ import { CheckBoxPrinterComponent } from '../check-box-printer/check-box-printer
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.scss']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent implements OnInit, DoCheck, AfterContentChecked, 
+AfterContentInit, AfterViewInit, AfterViewChecked{
   //as we want to get the object from the parent, add 
   //decorator to the property name
   //prent can supply object to this property
@@ -48,6 +49,8 @@ export class ProjectComponent implements OnInit {
   }); 
 
   }
+  @ViewChild ("tbl") tbl : ElementRef;
+
   onEditClick(event: any, i: any)
   {
     this.editClick.emit({event, i});
@@ -89,4 +92,27 @@ export class ProjectComponent implements OnInit {
       }
   }
   }
+  ngDoCheck(): void {
+    console.info("-------------------ngDoCheck called");
+  }
+  ngAfterContentChecked(): void {
+    console.info("-------------------ngAfterContentChildcalled");
+  
+  }
+  //best method to access viewChild and viewChildren
+  ngAfterContentInit(): void {
+    console.info("-------------------ngAfterContentInitcalled");
+    console.log(this.selectionBoxes.toArray());
+
+  }
+  //bestt to aceess the viewChild and viewChildren
+  ngAfterViewInit(): void {
+    console.info("-------------------ngAfterViewInit called");
+    console.log(this.tbl);
+  }
+  //part of cycle
+  ngAfterViewChecked(): void {
+    console.info("-------------------ngAfterViewChecked called");
+  }
+
 }
