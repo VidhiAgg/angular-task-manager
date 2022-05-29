@@ -11,6 +11,7 @@ import { ClientLocationServiceValidatorDirective } from '../client-location-serv
 import { ProjectIDUniqueValidatorDirective } from '../project-idunique-validator.directive';
 import { ProjectComponent } from './project/project.component';
 import { CheckBoxPrinterComponent } from './check-box-printer/check-box-printer.component';
+import { NumberToWordPipe } from '../number-to-word.pipe';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -21,7 +22,8 @@ import { CheckBoxPrinterComponent } from './check-box-printer/check-box-printer.
     ClientLocationServiceValidatorDirective,
     ProjectIDUniqueValidatorDirective,
     ProjectComponent,
-    CheckBoxPrinterComponent
+    CheckBoxPrinterComponent,
+    NumberToWordPipe
   ],
   imports: [ CommonModule,FormsModule],
   exports:[

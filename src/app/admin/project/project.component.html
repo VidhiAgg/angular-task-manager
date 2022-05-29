@@ -12,14 +12,14 @@
         
     </div>
     <div class="card-body">
-    <table class="tabble table-borderless" [hidden]="hideDetails"> <!--hide the table if true-->
+    <table class="tabble table-borderless" [hidden]="hideDetails" #tbl> <!--hide the table if true-->
         <tr>
             <th>Date of Start: </th>
             <td>{{project.dateOfStart}}</td>
         </tr>
         <tr>
             <th>Team Size: </th>
-            <td>{{project.teamSize}}</td>
+            <td>{{project.teamSize | numberToWord}}</td>
         </tr>
         <tr>
             <th>Cient Location: </th>
