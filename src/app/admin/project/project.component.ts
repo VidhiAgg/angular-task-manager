@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output,EventEmitter, ContentChild, ContentChildren, QueryList, DoCheck, AfterContentChecked, AfterContentInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, Output,EventEmitter, ContentChild, ContentChildren, QueryList, DoCheck, AfterContentChecked, AfterContentInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Project } from 'src/app/project';
 import { ProjectsService } from 'src/app/projects.service';
@@ -11,7 +11,7 @@ import { CheckBoxPrinterComponent } from '../check-box-printer/check-box-printer
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit, DoCheck, AfterContentChecked, 
-AfterContentInit, AfterViewInit, AfterViewChecked{
+AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy{
   //as we want to get the object from the parent, add 
   //decorator to the property name
   //prent can supply object to this property
@@ -114,5 +114,5 @@ AfterContentInit, AfterViewInit, AfterViewChecked{
   ngAfterViewChecked(): void {
     console.info("-------------------ngAfterViewChecked called");
   }
-
+  
 }

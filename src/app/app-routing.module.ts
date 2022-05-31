@@ -27,6 +27,7 @@ const routes: Routes = [
   //has enabled the hash routing
   //benefit of using this is that 
   //if u copy the same in any oher browser tab, the route will be displayed correctly
+  //forRoot -> an array of routes
   imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })

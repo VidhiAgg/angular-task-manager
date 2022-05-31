@@ -38,10 +38,10 @@
                     <select class="form-control" style="width: 120%;" id="searchBy" name="searchBy"
                         [(ngModel)]="searchBy">
 
-                        <option value="ProjectID">Project ID</option>
-                        <option options value="ProjectName">Project Name</option>
-                        <option options value="Date of Start">Date of Start</option>
-                        <option options value="Team Size">Team Size</option>
+                        <option value="projectID">Project ID</option>
+                        <option options value="projectName">Project Name</option>
+                        <option options value="dateOfStart">Date of Start</option>
+                        <option options value="teamSize">Team Size</option>
                     </select>
                 </div>
             </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -67,11 +67,12 @@
         </form>
         <div class="contanier mt-3">
             <div class="row">
-                <div class="col-md-4" *ngFor="let project of projects ; let i = index" [ngClass]="{'text-muted' : !project.active}">
+                <div class="col-md-4" *ngFor="let project of projects  | filter: searchBy : searchText
+                 let i = index" [ngClass]="{'text-muted' : !project.active}" >
                 <app-project #toggleDetail [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,i)"
                 (deleteClick)="onDeleteClick($event,i)"> <!--Subscribing to parent component-->
                 <app-check-box-printer #selectionBox></app-check-box-printer> <!--giving referne variable name-->
-                <app-check-box-printer #selectionBox></app-check-box-printer>
+               
             </app-project>
                 </div>
             </div>
