@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Project } from './project';
 
 @Pipe({
-  name: 'filter'
+  name: 'filter',
+  pure : false
 })
 export class FilterPipe implements PipeTransform {
 
@@ -15,10 +16,7 @@ export class FilterPipe implements PipeTransform {
 
    for (let item of value)
     {   
-      console.log(String(item[searchBy]).toLowerCase());
-      
-      console.log(String(item[searchBy]).toLowerCase().indexOf(searchText.toLowerCase()))
-
+      //converted to lower case to make it case insensitive
 
       if (String(item[searchBy]).toLowerCase().indexOf(searchText.toLowerCase()) >= 0)
       {
