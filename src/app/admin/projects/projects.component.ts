@@ -22,7 +22,7 @@ editIndex: any=null;
 //for deleting
 deleteProject: Project = new Project();
 deleteIndex:any=null;
-searchBy:string="ProjectName";
+searchBy:string="projectName";
 searchText:string="";
 //to show the spinner
  showLoading :  boolean = true;

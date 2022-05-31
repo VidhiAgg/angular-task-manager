@@ -12,6 +12,7 @@ import { ProjectIDUniqueValidatorDirective } from '../project-idunique-validator
 import { ProjectComponent } from './project/project.component';
 import { CheckBoxPrinterComponent } from './check-box-printer/check-box-printer.component';
 import { NumberToWordPipe } from '../number-to-word.pipe';
+import { FilterPipe } from '../filter.pipe';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -23,7 +24,8 @@ import { NumberToWordPipe } from '../number-to-word.pipe';
     ProjectIDUniqueValidatorDirective,
     ProjectComponent,
     CheckBoxPrinterComponent,
-    NumberToWordPipe
+    NumberToWordPipe,
+    FilterPipe
   ],
   imports: [ CommonModule,FormsModule],
   exports:[
