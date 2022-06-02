@@ -51,29 +51,41 @@
                 <label for="searchText" class="col-form-label col-sm-4 col-lg-4 col-md-4 col-xs-4 text-right " style="margin-left: -6%; margin-right: -11%;">Search
                     Text:</label>
                 <div class="input-group col-sm-7 col-lg-7 col-md-7 col-xs-7">
-                    <input type="text" style="width: 50%;" placeholder="Type here" class="form-control" id="searchText" name="searchText" [(ngModel)]="searchText">
+                    <input type="text" style="width: 50%;" placeholder="Type here" class="form-control" 
+                    id="searchText" name="searchText" [(ngModel)]="searchText" (keyup)="onSearchTextKeyUp($event)">
 
-                    <div class="input-group-append" style="width: -1%;">
+                    <!--<div class="input-group-append" style="width: -1%;">
                         <span class="input-group-text"><i class="fa fa-search"></i></span>
-                    </div>
+                    </div> --> 
                 </div>
 
             </div>
 
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align-last:right;float:right;margin-left: -7%;">
+            <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align-last:right;float:right;margin-left: -7%;">
                 <button class="btn btn-success" style="width: 160%;text-align: center;text-align-last: center;" (click)="onSearchClick()">Search</button>
-            </div>
+            </div> -->
 
         </form>
         <div class="contanier mt-3">
             <div class="row">
-                <div class="col-md-4" *ngFor="let project of projects  | filter: searchBy : searchText
+                <div class="col-md-4 mb-1 projectcard"  *ngFor="let project of projects  | filter: searchBy : searchText | paging : currentPageIndex : pageSize
                  let i = index" [ngClass]="{'text-muted' : !project.active}" >
-                <app-project #toggleDetail [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,i)"
+                <app-project #toggleDetail [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,project.projectID-1)"
                 (deleteClick)="onDeleteClick($event,i)"> <!--Subscribing to parent component-->
                 <app-check-box-printer #selectionBox></app-check-box-printer> <!--giving referne variable name-->
-               
             </app-project>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <ul class="pagination justify-content-center mt-1">
+                        <!-- for repeating pageItem once pe one element in the array-->
+                        <li class="page-item" *ngFor="let page of pages"(click) = "onPageIndexClicked(page.pageIndex)"
+                        ngClass="{'active':page.pageIndex == currentPageIndex}">
+                            <!--to avoid refresh of page added onClick = false-->
+                            <a href="#" onclick="return false" class="page-link">{{page.pageIndex + 1}}</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
