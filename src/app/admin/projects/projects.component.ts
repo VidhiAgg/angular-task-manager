@@ -6,13 +6,23 @@ import { ClientLocationService } from 'src/app/client-location.service';
 import { NgForm } from '@angular/forms';
 import *as $ from "jquery";
 import { ProjectComponent } from '../project/project.component';
+import { FilterPipe } from 'src/app/filter.pipe';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-
+/*
+* In order to store the index of current Page, 
+* created a property called "currentPageIndex
+* pages array for ngFor
+* calculatePages() for calculating no. of projects based on array
+*/
+currentPageIndex = 0;
+pages : any[] = [];
+pageSize = 3;
 newProject:Project= new Project();
 projects:Project[];  
 //for storing the data of current project which you are editing right now
@@ -46,20 +56,25 @@ searchText:string="";
 */
 //@ViewChildren("toggleDetail") toggleDetail:QueryList <ProjectComponent>;
 
-clientLocations : ClientLocation[] = []
+//clientLocations : ClientLocation[] = []
+clientLocations : Observable <ClientLocation[]>;
   constructor(private projectService: ProjectsService,
     private clientLocationService : ClientLocationService) { }
 
   ngOnInit(): void {
     //will return observable of project
     //subscribe method creates observer
+    console.log("IN ng");
     this.projectService.gtAllProjects().subscribe(
       //user error function that will execute after receiving data from server
       //we are using a variable "response" of project array data type
-      //this data type should be same that u have mentioned in observable
+      //this data type should be same that u have mentioned in observable4
+      
       (response:Project[])=>{ 
+        console.log("IN ng");
         this.projects=response; // assigning same to the project poperty of current component
         this.showLoading = false;
+        this.calculatePages();
       },
       //since using intercepttor for handling errors, no need for this
       /*(error) =>{
@@ -71,20 +86,21 @@ clientLocations : ClientLocation[] = []
     );
 
     //we need to fetch the data, in order to bind it with the dropDown List
-    this.clientLocationService.getClientLocation().subscribe(
+    /*this.clientLocationService.getClientLocation().subscribe(
       (response) =>{
         this.clientLocations = response;
 
       }
-    );
+    );*/
+    this.clientLocations = this.clientLocationService.getClientLocation();
    
   }
-  @ViewChild("#edPrjName") edPrjName : ElementRef;
+  /*@ViewChild("#edPrjName") edPrjName : ElementRef;
   setFocus(){
     setTimeout(() =>{
       this.edPrjName.nativeElement.focus();
   },600);
-  }
+  }*/
 
   @ViewChild("prjID") prjID : ElementRef;  
 
@@ -126,6 +142,7 @@ nativeElement represents the actual object as per browser DOM
         this.newProject.status = null;
 
         $("#newFormCancel").trigger("click");
+        this.calculatePages();
       }, (error) =>
       {
         console.log(error);
@@ -173,7 +190,9 @@ nativeElement represents the actual object as per browser DOM
   
   // index:number -> to get the row for which user will clicks on edit button
   onEditClick(event:any, index:number){
-    this.setFocus();
+    console.log("in edit")
+    console.log(index);
+    //this.setFocus();
 
     this.editForm.resetForm();
     
@@ -187,7 +206,7 @@ nativeElement represents the actual object as per browser DOM
     this.editProject.clientLocationID = this.projects[index].clientLocationID;
     this.editProject.clientLocation.teamSize = this.projects[index].clientLocation;
     this.editIndex=index;
-    this.edPrjName.nativeElement.focus();
+    //this.edPrjName.nativeElement.focus();
 
     }, 100);
   }
@@ -237,6 +256,7 @@ this.projectService.deleteProject(this.deleteProject.projectID).subscribe(
     this.deleteProject.projectID=null;
     this.deleteProject.projectName=null;
     this.deleteProject.teamSize=null;
+    this.calculatePages();
   },
   (error)=>{
     console.log(error);}
@@ -248,6 +268,7 @@ this.projectService.gtAllProjects().subscribe(
     this.projects = response;
   });
   }
+
 onSearchClick():void{
   if(this.searchBy == null && this.searchText == null)
   {
@@ -273,6 +294,7 @@ else
 }
 }
 
+
 /*onHideShowDetails(event){
   //this.toggleDetail.toggleDetails()
   let projectDetails = this.toggleDetail.toArray();
@@ -297,7 +319,37 @@ isAllCheckedChange(event : any)
     proj[i].isAllChecked(this.isAllChecked);
 }
 }
+calculatePages(){
+ 
+let filterPipe = new FilterPipe();
+    var resultProjects = filterPipe.transform(this.projects, this.searchBy, this.searchText);
+    var noOfPages = Math.ceil(resultProjects.length  / this.pageSize);
 
+    this.pages = [];
+    for (let i = 0; i < noOfPages; i++)
+    {
+      
+      this.pages.push( { pageIndex: i });
+    }
+    console.log(this.pages);
+
+    this.currentPageIndex = 0;
+  }
+
+
+onSearchTextKeyUp(event){
+  this.calculatePages();
+
+}
+onPageIndexClicked(pageIndex: number){
+  /*
+  whenever the current pageIndex prop value has been changed; the paging pipe will reexecute
+  because of impure pipe
+  */
+
+  this.currentPageIndex = pageIndex;
+
+}
 
   clearFields():void{
     this.newProject.dateOfStart=null;

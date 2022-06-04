@@ -85,10 +85,12 @@ public mySubject: Subject<boolean>;
     .pipe(map(
       (data: Project[])=>
       {
-        for(let i=0;i<data.length;i++)
+        //for(let i=0;i<data.length;i++)
         {
             //data[i].teamSize= data[i].teamSize*100;
         }
+        console.log("IN service");
+        console.log(data);
         return data;
       }
     )); // this method returns an observable of project array type

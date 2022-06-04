@@ -13,6 +13,7 @@ import { ProjectComponent } from './project/project.component';
 import { CheckBoxPrinterComponent } from './check-box-printer/check-box-printer.component';
 import { NumberToWordPipe } from '../number-to-word.pipe';
 import { FilterPipe } from '../filter.pipe';
+import { PagingPipe } from '../paging.pipe';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -25,7 +26,8 @@ import { FilterPipe } from '../filter.pipe';
     ProjectComponent,
     CheckBoxPrinterComponent,
     NumberToWordPipe,
-    FilterPipe
+    FilterPipe,
+    PagingPipe
   ],
   imports: [ CommonModule,FormsModule],
   exports:[
