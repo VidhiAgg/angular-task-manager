@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import *as $ from "jquery";
 import { ProjectComponent } from '../project/project.component';
 import { FilterPipe } from 'src/app/filter.pipe';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
@@ -55,7 +56,8 @@ searchText:string="";
 */
 //@ViewChildren("toggleDetail") toggleDetail:QueryList <ProjectComponent>;
 
-clientLocations : ClientLocation[] = []
+//clientLocations : ClientLocation[] = []
+clientLocations : Observable <ClientLocation[]>;
   constructor(private projectService: ProjectsService,
     private clientLocationService : ClientLocationService) { }
 
@@ -84,12 +86,13 @@ clientLocations : ClientLocation[] = []
     );
 
     //we need to fetch the data, in order to bind it with the dropDown List
-    this.clientLocationService.getClientLocation().subscribe(
+    /*this.clientLocationService.getClientLocation().subscribe(
       (response) =>{
         this.clientLocations = response;
 
       }
-    );
+    );*/
+    this.clientLocations = this.clientLocationService.getClientLocation();
    
   }
   /*@ViewChild("#edPrjName") edPrjName : ElementRef;

@@ -232,7 +232,7 @@
                                                 newForm.submitted),'is-valid': newClientLocation.valid && (newClientLocation.dirty || newClientLocation.touched || 
                                                 newForm.submitted) }">
                                             <option value="null">Please Select</option>
-                                            <option *ngFor="let clientLocation of clientLocations" [value]="clientLocation.clientLocationID">
+                                            <option *ngFor="let clientLocation of clientLocations | async" [value]="clientLocation.clientLocationID">
                                                 {{clientLocation.clientLocationName}}
                                               </option>
                                         </select>
@@ -415,7 +415,7 @@
                                                 editForm.submitted) }">
                                             <option value="null">Please Select</option>
                                 
-                                            <option *ngFor="let clientLocation of clientLocations" [value]="clientLocation.clientLocationID">
+                                            <option *ngFor="let clientLocation of clientLocations | async" [value]="clientLocation.clientLocationID">
                                                 {{clientLocation.clientLocationName}}
                                               </option>
                                         </select>
