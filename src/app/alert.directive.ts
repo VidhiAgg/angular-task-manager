@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[appAlert]'
@@ -12,12 +13,24 @@ export class AlertDirective {
   ngOnInit(){
     // `` using this bcz HTML code can go multiple line
     this.elementRef.nativeElement.innerHTML = `
-      <div class="alert alert-danger fade show" role="alert">
+      <div class="alert alert-danger fade show" role="alert" style ="transition:transform 0.5s">
         <span>${this.alertMessage}</span>
       </div>
     `;
-    
+  }
+  //method binded to mouseenter event of hostListner
+  // event paramaetr represents th event parameter of JS DOM.
+  //querySelector -> can search for the children by using it.
+  @HostListener("mouseenter", ["$event"])
+  onMouseEnter(event: any) {
+    this.elementRef.nativeElement.querySelector(".alert").style.transform = "scale(1.1)";
+  }
+
+  @HostListener("mouseleave", ["$event"])
+  onMouseLeave() {
+    this.elementRef.nativeElement.querySelector(".alert").style.transform = "scale(1)";
+  }
 
   }
 
-}
+
