@@ -1,5 +1,4 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[appAlert]'
@@ -7,6 +6,7 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 export class AlertDirective {
   //now will be able to pass the value into into error by assiging the property binding in the host eleengt in div tag
   @Input("alertMessage")alertMessage : string;
+  @HostBinding("title")title : string;
 
   constructor(private elementRef :  ElementRef) { }
 
@@ -17,6 +17,7 @@ export class AlertDirective {
         <span>${this.alertMessage}</span>
       </div>
     `;
+    this.title="Either username or password is incorrect.";
   }
   //method binded to mouseenter event of hostListner
   // event paramaetr represents th event parameter of JS DOM.
