@@ -15,8 +15,7 @@ export class CanActiveGuardService implements CanActivate {
 /*
 ActivatedRouteSnapshot -> if u want to read the details about the current working routeto which the 
                           user wants to navigate, using which you can access the details of the particular route,
-                           to which the user wants to navigate4
-  RouterStateSnapshot  ->                       
+                           to which the user wants to navigate                      
 */
     canActivate(route: ActivatedRouteSnapshot): boolean 
     {
