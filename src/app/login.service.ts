@@ -39,13 +39,13 @@ export class LoginService {
         /*
         * for all, subsequent request, where the authenticatio is required, You require 
         * to submitt the same token as a part of request header
-        *  for ex, while making equest ti "api/projects" in he "project" service,
+        *  for ex, while making Request tO "api/projects" in The "project" service,
         * we require to add the JWT toke into a request header 
         * called "authorization" with a prefix called "Bearer"
         */
         //ss so that it will not be accessible by oter tabs and browser
         //storing complete user object in the session storage
-        //so it became availabel gor other services
+        //so it became availabel For other services
         
         sessionStorage['currentUser'] = JSON.stringify(response.body);
         sessionStorage['XSRFRequestToken'] = response.headers.get("XSRF-REQUEST-TOKEN")

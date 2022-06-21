@@ -75,7 +75,7 @@ public mySubject: Subject<boolean>;
          // going to convert it into object
          currentUser = JSON.parse(sessionStorage['currentUser']);
          headers = headers.set("Authorization" ,"Bearer "+ currentUser.token); 
-         //this header will be send to the server. And on the server side, the Authorize attribute will
+         //this header will be send to the server. And on the server side, the Authorize a      ttribute will
          //recive and verify the same
        }
        return this.httpClient.get<Project[]>(this.url,{headers: headers, responseType:"json"})
