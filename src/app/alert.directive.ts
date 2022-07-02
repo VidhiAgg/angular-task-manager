@@ -7,6 +7,7 @@ import { Directive, ElementRef, HostBinding, HostListener, Input,
 export class AlertDirective {
   //now will be able to pass the value into into error by assiging the property binding in the host eleengt in div tag
   @Input("alertMessage")alertMessage : string;
+  
   @HostBinding("title")title : string;
 
   constructor(private elementRef :  ElementRef,

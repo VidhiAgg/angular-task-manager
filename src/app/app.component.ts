@@ -8,6 +8,7 @@ import { LoginService } from './login.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  
   title = 'TaskManger';
   constructor(
     public loginService:LoginService,

@@ -21,7 +21,8 @@ import { RepeaterDirective } from './repeater.directive';
     SignUpComponent,
     TaskComponent,
     AlertDirective,
-    RepeaterDirective
+    RepeaterDirective,
+    
   ],
   imports: [
     BrowserModule,
