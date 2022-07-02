@@ -14,6 +14,8 @@ import { CheckBoxPrinterComponent } from './check-box-printer/check-box-printer.
 import { NumberToWordPipe } from '../number-to-word.pipe';
 import { FilterPipe } from '../filter.pipe';
 import { PagingPipe } from '../paging.pipe';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -27,9 +29,10 @@ import { PagingPipe } from '../paging.pipe';
     CheckBoxPrinterComponent,
     NumberToWordPipe,
     FilterPipe,
-    PagingPipe
+    PagingPipe,
+    ProjectDetailsComponent
   ],
-  imports: [ CommonModule,FormsModule],
+  imports: [ CommonModule,FormsModule, RouterModule],
   exports:[
     DashboardComponent,
     MyProfileComponent,
@@ -37,7 +40,8 @@ import { PagingPipe } from '../paging.pipe';
     ProjectsComponent,
     TeamSizeValidatorDirective,
     ClientLocationServiceValidatorDirective,
-    ProjectIDUniqueValidatorDirective
+    ProjectIDUniqueValidatorDirective,
+    ProjectDetailsComponent // for making availabel to appRoutingModule
      //so that project module can be imported by app module
   ],
   providers:[DashboardService]

@@ -34,12 +34,14 @@
                             <button class="btn btn-danger" (click)="onLoginClick($event)">Login</button>
                         </div>
                     </div>
-                <div *appRepeater="5;let i "><!--{{i}} -->
+                    <!-- Custom structurual Directive
+                <div *appRepeater="5;let i "> //{{i}} 
                     <a class="btn btn-primary" data-toggle="collapse" [href]="'#collapse'+i"  role="button">Show Details</a>
                     <div class="collapse" [id]="'collapse'+i">
                         <div class="card card-body">Actual details here</div>
                     </div>
                 </div>
+            -->
                 </form>
             </div>
         </div>
