@@ -14,14 +14,23 @@ const routes: Routes = [
   { path: 'signup', component: SignUpComponent},
   { path: 'login', component: LoginComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'projects/details/:projectid', component: ProjectDetailsComponent,
-  canActivate : [CanActiveGuardService],data: {
+
+  {path: 'admin', canActivate : [CanActiveGuardService],data: {
+    expectedRole : "Admin" }, children:[
+    { path: 'projects/details/:projectid', component: ProjectDetailsComponent,canActivate : [CanActiveGuardService],
+    data: {expectedRole : "Admin" } },
+    { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService],data: {
     expectedRole : "Admin" } },
-  { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService],data: {
-    expectedRole : "Admin" } },
-  { path: 'projects', component: ProjectsComponent, canActivate : [CanActiveGuardService],data: {
-    expectedRole : "Admin" } },
-    {path: "task", component: TaskComponent, canActivate: [CanActiveGuardService], data: { expectedRole: "Employee" } },
+    { path: 'projects', component: ProjectsComponent, canActivate : [CanActiveGuardService],data: {
+    expectedRole : "Admin" } }
+  ]},
+
+  {path: 'employee', canActivate: [CanActiveGuardService], data: { expectedRole: "Employee" }, children:[
+    {path: "task", component: TaskComponent, canActivate: [CanActiveGuardService],
+     data: { expectedRole: "Employee" } },
+  ]}
+
+
  
   
 ];

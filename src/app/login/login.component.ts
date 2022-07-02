@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     console.log(this.loginView);
     this.loginService.login(this.loginView).subscribe(
       (response)=>{
-        this.route.navigateByUrl("/dashboard");
+        this.route.navigate(["/admin","dashboard"]);
       },
       (error)=>{
         this.loginError="Invalid Username or Password";
