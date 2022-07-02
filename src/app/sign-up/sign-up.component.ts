@@ -64,7 +64,7 @@ export class SignUpComponent implements OnInit {
       //convert the signupForm as an object of the signUpViewModel
       var signUpViewModel = this.signUpForm.value as  SignUpViewModal;
       this.loginService.register(signUpViewModel).subscribe((respone) =>{
-        this.route.navigate(["task"]);
+        this.route.navigate(["/employee","task"]);
 
 
       },
