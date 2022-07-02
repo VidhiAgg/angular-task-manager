@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './admin/about/about.component';
-import { DashboardComponent } from './admin/dashboard/dashboard.component';
-import { ProjectDetailsComponent } from './admin/project-details/project-details.component';
-import { ProjectsComponent } from './admin/projects/projects.component';
 import { CanActiveGuardService } from './can-active-guard.service';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -14,17 +11,6 @@ const routes: Routes = [
   { path: 'signup', component: SignUpComponent},
   { path: 'login', component: LoginComponent },
   { path: 'about', component: AboutComponent },
-
-  {path: 'admin', canActivate : [CanActiveGuardService],data: {
-    expectedRole : "Admin" }, children:[
-    { path: 'projects/details/:projectid', component: ProjectDetailsComponent,canActivate : [CanActiveGuardService],
-    data: {expectedRole : "Admin" } },
-    { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService],data: {
-    expectedRole : "Admin" } },
-    { path: 'projects', component: ProjectsComponent, canActivate : [CanActiveGuardService],data: {
-    expectedRole : "Admin" } }
-  ]},
-
   {path: 'employee', canActivate: [CanActiveGuardService], data: { expectedRole: "Employee" }, children:[
     {path: "task", component: TaskComponent, canActivate: [CanActiveGuardService],
      data: { expectedRole: "Employee" } },
