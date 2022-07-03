@@ -69,7 +69,8 @@
             <div class="row">
                 <div class="col-md-4 mb-1 projectcard"  *ngFor="let project of projects  | filter: searchBy : searchText | paging : currentPageIndex : pageSize
                  let i = index" [ngClass]="{'text-muted' : !project.active}" >
-                <app-project #toggleDetail [currentProject]="project" [recordIndex]="i" (editClick)="onEditClick($event,project.projectID-1)"
+                 <!--Added mistake rsolved -->
+                <app-project #toggleDetail [currentProject]="project" [recordIndex]="i"  (editClick)="onEditClick($event,project.projectID-1)"
                 (deleteClick)="onDeleteClick($event,i)"> <!--Subscribing to parent component-->
                 <app-check-box-printer #selectionBox></app-check-box-printer> <!--giving referne variable name-->
             </app-project>

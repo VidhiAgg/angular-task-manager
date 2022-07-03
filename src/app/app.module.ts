@@ -10,16 +10,15 @@ import { JwtInterceptorService } from './jwt-interceptor.service';
 import { JwtUnauthorizedInterceptorService } from './jwt-unauthorized-interceptor.service';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { TaskComponent } from './task/task.component';
 import { AlertDirective } from './alert.directive';
 import { RepeaterDirective } from './repeater.directive';
+import { EmployeeModule } from './employee/employee.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    TaskComponent,
     AlertDirective,
     RepeaterDirective,
     
@@ -29,6 +28,7 @@ import { RepeaterDirective } from './repeater.directive';
     AppRoutingModule,
     HttpClientModule,
     AdminModule,
+    EmployeeModule,
     FormsModule,
     ReactiveFormsModule,
     
