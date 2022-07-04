@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CanComponentDeactivate } from '../can-deactivate-guard.service';
 import { CountriesService } from '../countries.service';
 import { Country } from '../country';
 import { CustomValidatorsService } from '../custom-validators.service';
@@ -12,18 +13,20 @@ import { SignUpViewModal } from '../sign-up-view-modal';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, CanComponentDeactivate {
 
   signUpForm: FormGroup | any = null;
   gender =["Male","Female"];
   countries: Country[] = [];
   registerError: string| null = null;
+  canLeave : Boolean = true;
 
   constructor(private countryServices: CountriesService,
     private formBuilder: FormBuilder,
     private customValidatorsService: CustomValidatorsService,
     private loginService: LoginService,
     private route: Router) { }
+  
 
   ngOnInit(): void {
    this.countryServices.getCountries().subscribe((response) =>
@@ -53,18 +56,27 @@ export class SignUpComponent implements OnInit {
           this.customValidatorsService.compareValidator("confirmPassword",
           "password")]
       });
+
     this.signUpForm.valueChanges.subscribe((value:any) =>{
-     // console.log(value);
+      console.log(value);
+     this.canLeave = false;
     });
+    /*
+    valueChanges observable of SignUpfORM, update the value of canLeave
+    if user edit any of the field, canleave will automatically become false
+    */
+  
   }
   onSubmitClick(){
     this.signUpForm["submitted"] = true;
-    console.log(this.signUpForm);
+    //console.log(this.signUpForm);
     if (this.signUpForm.valid) {
       //convert the signupForm as an object of the signUpViewModel
       var signUpViewModel = this.signUpForm.value as  SignUpViewModal;
       this.loginService.register(signUpViewModel).subscribe((respone) =>{
+        this.canLeave = true; //can navigate to another route after saving form
         this.route.navigate(["/employee","task"]);
+
 
 
       },
@@ -123,5 +135,6 @@ this.signUpForm.reset({
 
 
   }
+
 
 }
