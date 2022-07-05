@@ -50,6 +50,7 @@
     </form>
   </div>
 </nav>
-<div class="container-fluid">
-  <router-outlet></router-outlet>
+<div class="container-fluid" [@routeAnimations]
+="getState(outlet)">
+  <router-outlet #outlet = "outlet"></router-outlet>
 </div>  
