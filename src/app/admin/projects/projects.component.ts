@@ -8,10 +8,12 @@ import *as $ from "jquery";
 import { ProjectComponent } from '../project/project.component';
 import { FilterPipe } from 'src/app/filter.pipe';
 import { Observable } from 'rxjs';
+import { slideUpAnimation } from 'src/app/my-animations';
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  styleUrls: ['./projects.component.scss'],
+  animations: [slideUpAnimation]
 })
 export class ProjectsComponent implements OnInit {
 /*
@@ -356,9 +358,11 @@ onPageIndexClicked(pageIndex: number){
     this.newProject.projectID=null;
     this.newProject.projectName=null;
     this.newProject.teamSize=null;
-  }
+}
 
-
-  
-
+getState(outlet : any)
+{
+  // true part will return current woring of route-url
+  return outlet;
+}
 }
