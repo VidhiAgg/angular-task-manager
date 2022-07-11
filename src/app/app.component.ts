@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { RouterLoggerService } from './router-logger.service';
-import { fadeAnimation, slideUpAnimation, zoomUpAnimation, zoomLeftAnimation, slideLeftOrRightAnimation } from "./my-animations";
+import { fadeAnimation, slideUpAnimation, zoomUpAnimation, zoomLeftAnimation, slideLeftOrRightAnimation, keyframeAnimation } from "./my-animations";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,8 @@ import { fadeAnimation, slideUpAnimation, zoomUpAnimation, zoomLeftAnimation, sl
   //animations: [slideUpAnimation],
  // animations : [zoomUpAnimation]
  //animations : [zoomLeftAnimation]
- animations : [slideLeftOrRightAnimation]
+ //animations : [slideLeftOrRightAnimation],
+ animations:[keyframeAnimation]
 
 })
 export class AppComponent {

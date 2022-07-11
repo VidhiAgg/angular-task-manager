@@ -1,4 +1,5 @@
-import { trigger, transition, query, style, group, animate } from "@angular/animations";
+import { trigger, transition, query, style, group, animate, keyframes } from "@angular/animations";
+import { withModule } from "@angular/core/testing";
 //import this in app.ts file
 export const fadeAnimation =
 //with ths animation name we will apply animation to container-fluid which the router-outlet is present
@@ -166,4 +167,32 @@ export const slideLeftOrRightAnimation= trigger("slideLeftOrRightAnimate",[
     transition("6 => *", slideRight()),
 ]);
 
+export const keyframeAnimation =
+trigger("keyFrameAnimate",[
+    transition("* <=> *",[
+        query(":enter, :leave",
+        style({position: 'absolute', width:'98%'}),{optional: true}),
+        group([
+            query(":enter",[
+                animate("1s", keyframes ([
+                    style({offset: 0, transform :"scale(0.5) translateX(-100%)","transform-origin": "center left"}),
+                    style({offset: 0.3, transform :"scale(0.5) translateX(30%)" }),
+                    style({offset: 0.7, transform :"scale(0.5) translateX(30%)" }),
+                    style({offset: 1, transform :"scale(1) translateX(0%)"})
+                ])),
+            ],{optional: true}),
+
+            query(":leave",[
+                animate("1s", keyframes ([
+                    style({offset: 0, transform :"scale(1) ","transform-origin":"center right"}),
+                    style({offset: 0.3, transform :"scale(0.5) translateX(0%)"}),
+                    style({offset: 0.7, transform :"scale(0.5) translateX(0%)"}),
+                    style({offset: 1, transform :"scale(1) translateX(100%)"})
+                ])),
+            ],{optional: true}),
+                
+        ])
+    ])
+]);
+       
 
