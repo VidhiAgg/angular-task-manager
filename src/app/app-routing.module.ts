@@ -7,9 +7,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'signup', component: SignUpComponent, canDeactivate : [CanDeactivateGuardService] },
-  { path: 'login', component: LoginComponent },
-  { path: 'about', component: AboutComponent}
+  { path: 'signup', component: SignUpComponent, data:{linkIndex:3}, canDeactivate : [CanDeactivateGuardService] },
+  { path: 'login', component: LoginComponent, data:{linkIndex:2} },
+  { path: 'about', component: AboutComponent, data:{linkIndex:1}}
 ];
 
 @NgModule({
@@ -17,7 +17,7 @@ const routes: Routes = [
   //benefit of using this is that 
   //if u copy the same in any oher browser tab, the route will be displayed correctly
   //forRoot -> an array of routes
-  imports: [RouterModule.forRoot(routes,{useHash:true, enableTracing : true})],
+  imports: [RouterModule.forRoot(routes,{useHash:true, enableTracing : false})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

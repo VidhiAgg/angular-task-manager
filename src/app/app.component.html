@@ -51,6 +51,6 @@
   </div>
 </nav>
 <div class="container-fluid"  
-[@zoomLeftAnimate]="getState(outlet)"> <!-- [@zoomUpAnimate][@routeAnimations] [@slideAnimations]-->
+[@slideLeftOrRightAnimate]="getState(outlet)"> <!-- [@zoomLeftAnimate] [@zoomUpAnimate][@routeAnimations] [@slideAnimations]-->
   <router-outlet #outlet = "outlet"></router-outlet>
 </div>  

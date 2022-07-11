@@ -7,8 +7,7 @@ import { CanActiveGuardService } from 'src/app/can-active-guard.service';
 
 const routes: Routes =[
   {path: 'employee', canActivate: [CanActiveGuardService], data: { expectedRole: "Employee" }, children:[
-    {path: "task", component: TaskComponent, canActivate: [CanActiveGuardService],
-     data: { expectedRole: "Employee" } },
+    {path: "task", component: TaskComponent,  data:{linkIndex:6} },
   ]}
 ]
 
