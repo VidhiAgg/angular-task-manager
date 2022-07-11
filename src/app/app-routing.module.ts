@@ -9,7 +9,8 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'signup', component: SignUpComponent, data:{linkIndex:3}, canDeactivate : [CanDeactivateGuardService] },
   { path: 'login', component: LoginComponent, data:{linkIndex:2} },
-  { path: 'about', component: AboutComponent, data:{linkIndex:1}}
+  { path: 'about', component: AboutComponent, data:{linkIndex:1}},
+  {path:'admin', loadChildren: ()=> import("./admin/admin.module").then(m => m.AdminModule)}
 ];
 
 @NgModule({
