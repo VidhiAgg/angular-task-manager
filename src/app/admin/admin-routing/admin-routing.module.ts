@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { CanActiveGuardService } from 'src/app/can-active-guard.service';
-import { ProjectDetailsComponent } from '../project-details/project-details.component';
-import { DashboardComponent } from '../dashboard/dashboard.component';
-import { ProjectsComponent } from '../projects/projects.component';
+import { CanActiveGuardService } from 'src/app/guards/can-active-guard.service';
+import { ProjectDetailsComponent } from '../components/project-details/project-details.component';
+import { DashboardComponent } from '../components/dashboard/dashboard.component';
+import { ProjectsComponent } from '../components/projects/projects.component';
 const routes: Routes = [
   {path: 'admin', canActivate : [CanActiveGuardService],data: {
     expectedRole : "Admin" }, children:[

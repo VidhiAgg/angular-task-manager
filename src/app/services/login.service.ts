@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { map, Observable } from 'rxjs';
-import { LoginViewModel } from './login-view-model';
-import { SignUpViewModal } from './sign-up-view-modal';
+import { LoginViewModel } from '../models/login-view-model';
+import { SignUpViewModal } from '../models/sign-up-view-modal';
+
 
 @Injectable({
   providedIn: 'root'

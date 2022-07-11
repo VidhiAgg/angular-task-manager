@@ -1,12 +1,12 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { Project } from '../../project';
-import { ProjectsService } from '../..//projects.service';
-import { ClientLocation } from 'src/app/client-location';
-import { ClientLocationService } from 'src/app/client-location.service';
+import { Project } from '../../../models/project';
+import { ProjectsService } from '../../../services/projects.service';
+import { ClientLocation } from 'src/app/models/client-location';
+import { ClientLocationService } from 'src/app/services/client-location.service';
 import { NgForm } from '@angular/forms';
 import *as $ from "jquery";
 import { ProjectComponent } from '../project/project.component';
-import { FilterPipe } from 'src/app/filter.pipe';
+import { FilterPipe } from '../../../pipes/filter.pipe';
 import { Observable } from 'rxjs';
 import { slideUpAnimation } from 'src/app/my-animations';
 @Component({

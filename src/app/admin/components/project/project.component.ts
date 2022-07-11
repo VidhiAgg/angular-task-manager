@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output,EventEmitter, ContentChild, ContentChildren, QueryList, DoCheck, AfterContentChecked, AfterContentInit, AfterViewInit, AfterViewChecked, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Project } from 'src/app/project';
-import { ProjectsService } from 'src/app/projects.service';
+import { Project } from '../../../models/project';
+import { ProjectsService } from '../../../services/projects.service';
 import { CheckBoxPrinterComponent } from '../check-box-printer/check-box-printer.component';
 
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskComponent } from './task/task.component';
+import { TaskComponent } from './components/task/task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmployeeRoutingModule } from './employee-routing/employee-routing.module';
 

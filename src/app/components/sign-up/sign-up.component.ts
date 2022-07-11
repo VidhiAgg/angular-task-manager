@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CanComponentDeactivate } from '../can-deactivate-guard.service';
-import { CountriesService } from '../countries.service';
-import { Country } from '../country';
-import { CustomValidatorsService } from '../custom-validators.service';
-import { LoginService } from '../login.service';
-import { SignUpViewModal } from '../sign-up-view-modal';
+import { CanComponentDeactivate } from '../../guards/can-deactivate-guard.service';
+import { CountriesService } from '../../services/countries.service';
+import { Country } from '../../models/country';
+import { CustomValidatorsService } from '../../services/custom-validators.service' ;
+import { LoginService } from '../../services/login.service';
+import { SignUpViewModal } from '../../models/sign-up-view-modal';
 
 @Component({
   selector: 'app-sign-up',
