@@ -3,14 +3,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { RouterLoggerService } from './router-logger.service';
-import { fadeAnimation, slideUpAnimation } from "./my-animations";
+import { fadeAnimation, slideUpAnimation, zoomUpAnimation, zoomLeftAnimation, slideLeftOrRightAnimation } from "./my-animations";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   //animations: [fadeAnimation],
-  animations: [slideUpAnimation]
+  //animations: [slideUpAnimation],
+ // animations : [zoomUpAnimation]
+ //animations : [zoomLeftAnimation]
+ animations : [slideLeftOrRightAnimation]
 
 })
 export class AppComponent {
@@ -50,14 +53,16 @@ ngOnInit(){
 
   });
 }
-
-  onSearchClick()
+onSearchClick()
   {
     console.log(this.loginService.currentUserName);
 }
+//will execute everytime the route is changed
 getState(outlet : any)
 {
-  // true part will return current woring of route-url
-  return outlet.isActivated ? outlet.activatedRoute.snapshot.url[0] : "none";
+  // true part will return current woring of route-url and passing the currently clicked route index to the MyAnimation.ts file
+  return outlet.isActivated ? outlet.activatedRoute.snapshot.url[0].path && outlet.activatedRouteData["linkIndex"]: "none";
 }
+
 }
+

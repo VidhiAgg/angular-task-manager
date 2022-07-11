@@ -66,9 +66,8 @@
 
         </form>
         <div class="contanier mt-3">
-            <div class="row">
-                <!--[@slideAnimations]="getState(currentPageIndex)"-->
-                <div class="col-md-4 mb-1 projectcard" 
+            <div class="row projectCard" [@slideAnimations]="getPageIndex(currentPageIndex)" *ngIf="showHideProjects">
+                <div class="col-md-4 mb-1 projectCard " 
                  *ngFor="let project of projects  | filter: searchBy : searchText | paging : currentPageIndex : pageSize
                  let i = index" [ngClass]="{'text-muted' : !project.active}" >
                  <!--Added mistake rsolved -->

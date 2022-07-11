@@ -35,6 +35,7 @@ editIndex: any=null;
 deleteProject: Project = new Project();
 deleteIndex:any=null;
 searchBy:string="projectName";
+showHideProjects = true;
 searchText:string="";
 //to show the spinner
  showLoading :  boolean = true;
@@ -350,7 +351,10 @@ onPageIndexClicked(pageIndex: number){
   */
 
   this.currentPageIndex = pageIndex;
-
+  this.showHideProjects = !this.showHideProjects;
+  setTimeout(()=>{
+    this.showHideProjects =!this.showHideProjects;
+  },500)
 }
 
   clearFields():void{
@@ -360,9 +364,8 @@ onPageIndexClicked(pageIndex: number){
     this.newProject.teamSize=null;
 }
 
-getState(outlet : any)
+getPageIndex(currentPageIndex : any)
 {
-  // true part will return current woring of route-url
-  return outlet;
+  return currentPageIndex;
 }
 }

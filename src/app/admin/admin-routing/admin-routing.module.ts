@@ -8,12 +8,9 @@ import { ProjectsComponent } from '../projects/projects.component';
 const routes: Routes = [
   {path: 'admin', canActivate : [CanActiveGuardService],data: {
     expectedRole : "Admin" }, children:[
-    { path: 'projects/details/:projectid', component: ProjectDetailsComponent,canActivate : [CanActiveGuardService],
-    data: {expectedRole : "Admin" } },
-    { path: 'dashboard', component: DashboardComponent, canActivate : [CanActiveGuardService],data: {
-    expectedRole : "Admin" } },
-    { path: 'projects', component: ProjectsComponent, canActivate : [CanActiveGuardService],data: {
-    expectedRole : "Admin" } }
+    { path: 'projects/details/:projectid', component: ProjectDetailsComponent, data:{linkIndex: 5}},
+    { path: 'dashboard', component: DashboardComponent, data:{linkIndex: 0}},
+    { path: 'projects', component: ProjectsComponent, data:{linkIndex: 4} }
   ]}
 ]
 
