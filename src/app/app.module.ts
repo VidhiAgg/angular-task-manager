@@ -6,12 +6,12 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { JwtInterceptorService } from './jwt-interceptor.service';
-import { JwtUnauthorizedInterceptorService } from './jwt-unauthorized-interceptor.service';
-import { LoginComponent } from './login/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-import { AlertDirective } from './alert.directive';
-import { RepeaterDirective } from './repeater.directive';
+import { JwtInterceptorService } from './interceptor/jwt-interceptor.service';
+import { JwtUnauthorizedInterceptorService } from './interceptor/jwt-unauthorized-interceptor.service';
+import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { AlertDirective } from './directives/alert.directive';
+import { RepeaterDirective } from './directives/repeater.directive';
 import { EmployeeModule } from './employee/employee.module';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
