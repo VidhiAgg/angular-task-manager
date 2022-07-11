@@ -132,7 +132,6 @@ function slideRight(){
 export const slideLeftOrRightAnimation= trigger("slideLeftOrRightAnimate",[
     transition("0 => *", slideLeft()),
    
-
     transition("1 => 0", slideRight()),
     transition("1 => *", slideLeft()),
     

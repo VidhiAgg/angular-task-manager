@@ -1,4 +1,6 @@
-import { ProjectIDUniqueValidatorDirective } from './project-idunique-validator.directive';
+//import { ProjectIDUniqueValidatorDirective } from './project-idunique-validator.directive';
+
+import { ProjectIDUniqueValidatorDirective } from "./project-idunique-validator.directive";
 
 describe('ProjectIDUniqueValidatorDirective', () => {
   it('should create an instance', () => {
