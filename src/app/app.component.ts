@@ -3,14 +3,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from './login.service';
 import { RouterLoggerService } from './router-logger.service';
-import { fadeAnimation, slideUpAnimation } from "./my-animations";
+import { fadeAnimation, slideUpAnimation, zoomUpAnimation, zoomLeftAnimation } from "./my-animations";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   //animations: [fadeAnimation],
-  animations: [slideUpAnimation]
+  //animations: [slideUpAnimation],
+ // animations : [zoomUpAnimation]
+ animations : [zoomLeftAnimation]
 
 })
 export class AppComponent {

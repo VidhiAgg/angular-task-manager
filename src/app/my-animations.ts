@@ -47,3 +47,44 @@ export const slideUpAnimation =
             )
     ])
 ]);
+
+export const zoomUpAnimation = 
+trigger("zoomUpAnimate",[
+    transition("* <=> *",[
+        query(":enter, :leave",
+            style({position : 'absolute', width: '98%'}),
+            {optional: true}),
+            group([
+                query(":enter",[
+                    style({transform: "scale(0) translateY(100%)"}),
+                    animate("0.6s", style({transform: "scale(1) translateY(0%)"}))
+                ],{optional: true})
+            ]),
+                query(":leave",[
+                    style({transform: "scale(1) translateY(0%)"}),
+                    animate("0.2s", style({transform: "scale(0) translateY(-100%)"}))
+            ],{optional: true}
+            )
+    ])
+]);
+
+export const zoomLeftAnimation= 
+trigger("zoomLeftAnimate",[
+    transition("* <=> *",[
+        query(":enter, :leave",
+            style({position : 'absolute', width: '98%'}),
+            {optional: true}),
+            group([
+                query(":enter",[
+                    style({transform: "scale(0) translateX(100%)"}),
+                    animate("0.6s", style({transform: "scale(1) translateX(0%)"}))
+                ],{optional: true})
+            ]),
+                query(":leave",[
+                    style({transform: "scale(1) translateY(0%)"}),
+                    animate("0.6s", style({transform: "scale(0) translateY(-100%)"}))
+            ],{optional: true}
+            )
+    ])
+]);
+
