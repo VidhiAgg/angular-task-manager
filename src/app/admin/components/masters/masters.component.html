@@ -1,0 +1,14 @@
+<h5>Masters</h5>
+<!-- onclick = "return fasle", to avoid refresh when the user click it-->
+<div class="row">
+    <div class="col-md-2">
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action" onclick = "return false"
+            *ngFor="let masterItem of masterMenu" 
+            [ngClass]="{'active' : activeItem == masterItem.itemName}">
+            {{masterItem.displayName}}</a>
+    </div>
+    <div class="col-md-8">
+
+    </div>
+</div>

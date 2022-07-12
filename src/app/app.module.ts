@@ -17,6 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { SharedModule } from './shared/shared.module';
 import { AboutComponent } from './admin/components/about/about.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { AboutComponent } from './admin/components/about/about.component';
     SignUpComponent,
     AlertDirective,
     RepeaterDirective,
-   AboutComponent
+   AboutComponent,
+   
     
   ],
   imports: [
