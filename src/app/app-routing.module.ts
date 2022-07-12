@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './admin/components/about/about.component';
 import { CanDeactivateGuardService } from './guards/can-deactivate-guard.service';
 import { LoginComponent } from './components/login/login.component';
@@ -18,7 +18,9 @@ const routes: Routes = [
   //benefit of using this is that 
   //if u copy the same in any oher browser tab, the route will be displayed correctly
   //forRoot -> an array of routes
-  imports: [RouterModule.forRoot(routes,{useHash:true, enableTracing : false})],
+  //preloadingStrategy : default value -> NoPRELOADING
+  imports: [RouterModule.forRoot(routes,{useHash:true, enableTracing : false, preloadingStrategy :
+  PreloadAllModules})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
