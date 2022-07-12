@@ -15,6 +15,9 @@
         <a class="nav-link" [routerLink]="['/admin','projects']">Projects</a>
       </li>
       <li class="nav-item" *ngIf="loginService.currentUserName!= null">
+        <a class="nav-link" [routerLink]="['/admin','masters']">Masters</a>
+      </li>
+      <li class="nav-item" *ngIf="loginService.currentUserName!= null">
         <a class="nav-link" href="#">{{loginService.currentUserName}}</a>
       </li>
       <li class="nav-item" *ngIf="loginService.currentUserName!= null">

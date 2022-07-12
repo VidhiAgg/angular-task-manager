@@ -11,6 +11,11 @@ import { ProjectDetailsComponent } from './components/project-details/project-de
 import { AdminRoutingModule } from './admin-routing/admin-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
+import { ClientLocationsComponent } from './components/client-locations/client-locations.component';
+import { CountriesComponent } from './components/countries/countries.component';
+import { MastersComponent } from './components/masters/masters.component';
+import { TaskPrioritiesComponent } from './components/task-priorities/task-priorities.component';
+import { TaskStatusComponent } from './components/task-status/task-status.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -18,7 +23,12 @@ import { SharedModule } from '../shared/shared.module';
     ProjectsComponent,
     ProjectComponent,
     CheckBoxPrinterComponent,
-    ProjectDetailsComponent
+    ProjectDetailsComponent,
+    CountriesComponent,
+   ClientLocationsComponent,
+   TaskPrioritiesComponent,
+   TaskStatusComponent,
+   MastersComponent
   ],
   imports: [ SharedModule, AdminRoutingModule],
   exports:[
