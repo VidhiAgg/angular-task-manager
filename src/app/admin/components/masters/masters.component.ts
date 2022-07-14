@@ -58,7 +58,14 @@ tabs=[];
         //viewContainerRef prop created in componentLoader directive and we are accessing in the same
         var viewContRef = componentLoaderArray[this.tabs.length-1].viewContainerRef;
         // will render the com. based on viewContainerRef
-        viewContRef.createComponent(componenetFactory);
+        var componentRef =  viewContRef.createComponent(componenetFactory);
+        if (clickedMenuItem.component.name == "CountriesComponent") {
+          var componentInstance = componentRef.instance as CountriesComponent;//typecast componentRef.instance property as CountriesComponent
+          componentInstance.message = "Hello to Countries" 
+          
+        }
+        //console.log(clickedMenuItem.component.name);
+        //console.log(clickedMenuItem);
       }, 100);
     }
     
