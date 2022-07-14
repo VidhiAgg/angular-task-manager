@@ -51,11 +51,14 @@ tabs=[];
       });
 
       setTimeout(() => {
+        //convert view children as array
         var componentLoaderArray = this.componentLoader.toArray();
         console.log(componentLoaderArray);
         var componenetFactory = this.componentFactoryResolver.resolveComponentFactory(clickedMenuItem.component);
-        var viewContainerRef = componentLoaderArray[this.tabs.length-1].viewContainerRef;
-        viewContainerRef.createComponent(componenetFactory);
+        //viewContainerRef prop created in componentLoader directive and we are accessing in the same
+        var viewContRef = componentLoaderArray[this.tabs.length-1].viewContainerRef;
+        // will render the com. based on viewContainerRef
+        viewContRef.createComponent(componenetFactory);
       }, 100);
     }
     
