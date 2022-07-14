@@ -13,5 +13,8 @@ export class CountriesComponent implements OnInit {
   
   ngOnInit(): void {
   }
+  ngOnDestroy(){
+    console.log("ngOndestroy"); //in ordr to test whether the component is deleted or not
+  }
 
 }

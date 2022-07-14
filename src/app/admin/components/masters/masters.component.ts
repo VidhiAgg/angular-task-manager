@@ -51,14 +51,22 @@ tabs=[];
       });
 
       setTimeout(() => {
-        //convert view children as array
-        var componentLoaderArray = this.componentLoader.toArray();
-        console.log(componentLoaderArray);
+        
+        var componentLoaderArray = this.componentLoader.toArray(); //convert view children as array
+       // console.log(componentLoaderArray);
         var componenetFactory = this.componentFactoryResolver.resolveComponentFactory(clickedMenuItem.component);
-        //viewContainerRef prop created in componentLoader directive and we are accessing in the same
-        var viewContRef = componentLoaderArray[this.tabs.length-1].viewContainerRef;
-        // will render the com. based on viewContainerRef
-        var componentRef =  viewContRef.createComponent(componenetFactory);
+
+        var viewContRef = componentLoaderArray[this.tabs.length-1].viewContainerRef;//viewContainerRef prop
+        // created in componentLoader directive and we are accessing in the same
+
+        var componentRef =  viewContRef.createComponent(componenetFactory); // will render the component based on viewContainerRef
+        
+        
+        this.tabs[this.tabs.length-1].viewContainerRef = viewContRef; // will store in the tab element so that we can access the  viewContainerRef and
+        // call the remove method for deleting the component
+
+        console.log(this.tabs[this.tabs.length-1].viewContainerRef);
+        
         if (clickedMenuItem.component.name == "CountriesComponent") {
           var componentInstance = componentRef.instance as CountriesComponent;//typecast componentRef.instance property as CountriesComponent
           componentInstance.message = "Hello to Countries" 
@@ -67,7 +75,19 @@ tabs=[];
         //console.log(clickedMenuItem.component.name);
         //console.log(clickedMenuItem);
       }, 100);
-    }
+    } 
+  }
+  onClickClose(clickedTab : any ){
+    console.log(clickedTab);
     
+    clickedTab.viewContainerRef.remove(); // to delete it from memory
+    this.tabs.splice(this.tabs.indexOf(clickedTab),1)  //to delete from the bootstrap
+    if (this.tabs.length > 0) {
+      this.activeItem = this.tabs[0].itemName;
+      
+    }
+
+
+
   }
 }
