@@ -18,7 +18,8 @@
                     render the display name as tab name -->
                 <a class="nav-link" data-toggle="tab" role="tab" [href]="'#' + tab.itemName"
                     [ngClass]="{ 'active' : activeItem == tab.itemName}" (click)="activeItem = tab.itemName">
-                    {{tab.displayName}}
+                    {{tab.displayName}}&nbsp;
+                    <span class="fa fa-window-close" (click)="onClickClose(tab)"></span>
                 </a>
             </li>
         </ul>
