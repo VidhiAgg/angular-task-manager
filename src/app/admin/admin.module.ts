@@ -16,6 +16,7 @@ import { CountriesComponent } from './components/countries/countries.component';
 import { MastersComponent } from './components/masters/masters.component';
 import { TaskPrioritiesComponent } from './components/task-priorities/task-priorities.component';
 import { TaskStatusComponent } from './components/task-status/task-status.component';
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -38,6 +39,8 @@ import { TaskStatusComponent } from './components/task-status/task-status.compon
     ProjectDetailsComponent // for making availabel to appRoutingModule
      //so that project module can be imported by app module
   ],
-  providers:[DashboardService]
+  providers:[DashboardService],
+  entryComponents :[CountriesComponent, ClientLocationsComponent,
+  TaskPrioritiesComponent, TaskStatusComponent]
 })
 export class AdminModule { }
