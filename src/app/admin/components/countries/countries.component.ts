@@ -39,6 +39,9 @@ editForm :  FormGroup | any = null;
 @ViewChild("defaultTextBox_New") defaultTextBox_New : ElementRef;
 @ViewChild("defaultTextBox_Edit")defaultTextBox_Edit : ElementRef;
 
+//for sorting
+sortBy: string = "countryName";
+sortOrder :  string = "ASC"; //ASC || DSC
   constructor(private countryService: CountriesService,
     private formBuilder :  FormBuilder) { }
 
@@ -70,9 +73,9 @@ editForm :  FormGroup | any = null;
   
 //get no. of pages
   calculatePages(){
- 
+     //Get no. of Pages
     let filterPipe = new FilterPipe();
-        var noOfPages = Math.ceil(this.countries.length  / this.pageSize);
+        var noOfPages = Math.ceil(filterPipe.transform(this.countries, this.searchBy, this.searchText).length  / this.pageSize);
     
         this.pages = [];
         for (let i = 0; i < noOfPages; i++)

@@ -39,11 +39,19 @@
                     <tr class="table-dark text-dark">
                         <th>
                             Country Name
+                            <i class="fa fa-sort hand-icon" *ngIf="sortBy!='countryName'" (click) ="sortBy = 'countryName';
+                            sortOrder='ASC'"></i>
+
+                            <i class="fa fa-sort-up hand-icon text-primary" *ngIf="sortBy=='countryName' && sortOrder =='ASC'" 
+                            (click) ="sortOrder='DESC'"></i>
+
+                            <i class="fa fa-sort-down hand-icon text-primary" *ngIf="sortBy=='countryName' && sortOrder =='DESC'" 
+                            (click) ="sortOrder='ASC'"></i>
                         </th>
                         <th class="text-center" style="width:200px">Actions</th>
                     </tr>
                     <tr *ngFor="let country of countries
-                     | filter:searchBy : searchText | paging :currentPageIndex :pageSize; let i = index">
+                     | filter:searchBy : searchText |sort :sortBy :sortOrder | paging :currentPageIndex :pageSize; let i = index">
                         <td>{{country.countryName}}</td>
                         <td class="text-center">
                             <button class="btn btn-info" (click)="onEditClick($event, country)" data-toggle="modal"
