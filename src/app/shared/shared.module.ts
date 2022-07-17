@@ -9,6 +9,7 @@ import { PagingPipe } from '../pipes/paging.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ComponentLoaderDirective } from '../directives/component-loader.directive';
+import { SortPipe } from '../pipes/sort.pipe';
 
 
 
@@ -21,6 +22,7 @@ import { ComponentLoaderDirective } from '../directives/component-loader.directi
     FilterPipe,
     PagingPipe,
    ComponentLoaderDirective,
+   SortPipe
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,7 @@ import { ComponentLoaderDirective } from '../directives/component-loader.directi
     NumberToWordPipe,
     FilterPipe,
     PagingPipe,   
+    SortPipe,
    ComponentLoaderDirective,
   ]
 })

@@ -1,11 +1,10 @@
 export class Country {
-    countryID: number|any;
+    countryID: number;
     countryName: string;
     //will execute on creating new object of class
-    constructor(countryIDParam: number,
-        countryNameParam: string)
+    constructor()
         {
-            this.countryID = countryIDParam;
-            this.countryName = countryNameParam;
+            this.countryID = null;
+            this.countryName = null;
     }
 }

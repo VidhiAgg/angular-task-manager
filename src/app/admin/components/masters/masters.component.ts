@@ -69,7 +69,7 @@ tabs=[];
         
         if (clickedMenuItem.component.name == "CountriesComponent") {
           var componentInstance = componentRef.instance as CountriesComponent;//typecast componentRef.instance property as CountriesComponent
-          componentInstance.message = "Hello to Countries" 
+          //componentInstance.message = "Hello to Countries" 
           
         }
         //console.log(clickedMenuItem.component.name);
