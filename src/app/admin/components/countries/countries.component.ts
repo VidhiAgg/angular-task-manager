@@ -29,7 +29,7 @@ searchText :  string = "";
 //prop for paging
 currentPageIndex : number = 0;
 pages : any[] =[];
-pageSize : number = 5;
+pageSize : number = 7;
 
 //properties for Reactive forms
 newForm :  FormGroup | any = null;
@@ -42,8 +42,7 @@ editForm :  FormGroup | any = null;
 //for sorting
 sortBy: string = "countryName";
 sortOrder :  string = "ASC"; //ASC || DSC
-  constructor(private countryService: CountriesService,
-    private formBuilder :  FormBuilder) { }
+  constructor(private countryService: CountriesService, private formBuilder :  FormBuilder) { }
 
   
   ngOnInit(): void {
@@ -83,22 +82,21 @@ sortOrder :  string = "ASC"; //ASC || DSC
           
           this.pages.push( { pageIndex: i });
         }
-        console.log(this.pages);
+        //console.log(this.pages);
     
         this.currentPageIndex = 0;
       }
 
   onPageIndexClicked(ind: number){
     //set CurrentpageIndex
-    if(ind >= 0 && ind <this.pages.length)
-    {
+    if(ind >= 0 && ind <this.pages.length){
       this.currentPageIndex = ind;
     }
   }
 
   onNewClick(event){
     //reset the form
-    this.newForm.reset({countryID: 0});
+    this.newForm.reset({countryID: null});
     setTimeout(() => {
       //Focus the clientLocation textBox in newForm
       this.defaultTextBox_New.nativeElement.focus();
@@ -156,7 +154,7 @@ sortOrder :  string = "ASC"; //ASC || DSC
     }
   }
 
-  onDeleteClick(event, country: Country){
+  onDeleteClick(event: any, country: Country){
 
     //set data into deleteCountry
     this.deleteCountry.countryID = country.countryID;
@@ -165,12 +163,12 @@ sortOrder :  string = "ASC"; //ASC || DSC
   }
 
   onDeleteConfirmClick(){
-    //invoke the rst-api call
+    //iInvoke the REST-API call
     this.countryService.deleteCountry(this.deleteCountry.countryID).subscribe((response)=>{
-      //delete the object in Grid
+      //Delete the object in Grid
       this.countries.splice(this.deleteIndex,1);
 
-      //clear delete country
+      //Clear delete country
       this.deleteCountry.countryID = null;
       this.deleteCountry.countryName = null;
       this.calculatePages();
@@ -180,7 +178,7 @@ sortOrder :  string = "ASC"; //ASC || DSC
   }
 
   onSearchTextChange(event){
-    //Recall the calcultaeNo.pAGES
+    //Recall the calculateNoOfPages
     this.calculatePages();
   }
 

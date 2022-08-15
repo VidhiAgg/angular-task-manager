@@ -112,7 +112,7 @@ sortOrder: string = "ASC";
 
         //Reset the newForm
         this.newForm.reset();
-        $("#newClientLocationFormCancel").trigger("click");
+        $("#newClientLocationModal").trigger("click");
         this.calculatePages(); //To caluculate the updated page number
       },(error)=>{
         console.log(error);
@@ -144,7 +144,7 @@ sortOrder: string = "ASC";
 
         //reset the edit form
         this.editForm.reset();
-        $("#editclientLocationFormCancel").trigger("click");
+        $("#editClientLocationModal").trigger("click");
       },(error)=>{
         console.log(error);
       })
@@ -168,6 +168,8 @@ sortOrder: string = "ASC";
       //clear delete clientLocation
       this.deleteClientLocation.clientLocationID = null;
       this.deleteClientLocation.clientLocationName = null;
+      $("#deleteClientLocationModal").trigger("click");
+
       this.calculatePages();
     },(error)=>{
       console.log(error);

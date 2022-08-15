@@ -20,24 +20,22 @@ export class CountriesService {
     ];
   }
   */
-  getCountries():Observable<Country[]>
-  {
-    return this.httpClient.get<Country[]>("http://localhost:9090/api/countries", {
-      responseType : "json"
-    });
+  getCountries():Observable<Country[]>{
+    return this.httpClient.get<Country[]>(this.urlPrefix + "/api/countries", {responseType : "json"});
   }
-  getCountryById(countryID: number):Observable<Country>{
-    return this.httpClient.get<Country>(this.urlPrefix + "/api/countries/searchbycountryid/" + countryID, {responseType:"json"})
-  }
-  insertCountry(newCountry: Country):Observable<Country>{
-    return this.httpClient.post<Country>(this.urlPrefix + "/api/countries",{responseType: "json"});
-  }
-  updateCountry(exsitingCountry: Country):Observable<Country>{
-    return this.httpClient.post<Country>(this.urlPrefix + "/api/countries",exsitingCountry,{responseType: "json"});
 
+  getCountryByCountryID(CountryID: number): Observable<Country> {
+    return this.httpClient.get<Country>(this.urlPrefix + "/api/countries/searchbycountryid/" + CountryID, { responseType: "json" });
   }
-  deleteCountry(countryID: number):Observable<string>{
-    return this.httpClient.delete<string>(this.urlPrefix + "/api/countries?CountryID=" +countryID);
+  insertCountry(newCountry: Country): Observable<Country> {
+    return this.httpClient.post<Country>(this.urlPrefix + "/api/countries", newCountry, { responseType: "json" });
+  }
 
+  updateCountry(existingCountry: Country): Observable<Country> {
+    return this.httpClient.put<Country>(this.urlPrefix + "/api/countries", existingCountry, { responseType: "json" });
+  }
+
+  deleteCountry(CountryID: number | null): Observable<string> {
+    return this.httpClient.delete<string>(this.urlPrefix + "/api/countries?countryID=" + CountryID);
   }
 }
