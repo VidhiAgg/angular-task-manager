@@ -19,11 +19,11 @@ export class ClientLocationService {
   }
 
   insertClientLocation(newClientLocation : ClientLocation):Observable<ClientLocation>{
-    return this.httpClient.post<ClientLocation>(this.urlPrefix+"/api/clientlocations"+ newClientLocation ,{responseType: "json"})
+    return this.httpClient.post<ClientLocation>(this.urlPrefix+"/api/clientlocations",newClientLocation ,{responseType: "json"})
   }
 
   updateClientLocation(exsistingClientLocation : ClientLocation):Observable<ClientLocation>{
-    return this.httpClient.patch<ClientLocation>(this.urlPrefix+"/api/clientlocations"+ exsistingClientLocation ,{responseType: "json"})
+    return this.httpClient.put<ClientLocation>(this.urlPrefix+"/api/clientlocations",exsistingClientLocation ,{responseType: "json"})
   }
 
   deleteClientLocation(clientLocationID: number):Observable<string>{

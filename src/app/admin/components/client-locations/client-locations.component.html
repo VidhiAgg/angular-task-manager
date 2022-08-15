@@ -9,7 +9,7 @@
         <div class="form-group row">
             <div class="col-md-12 col-lg-12 col-xl-2">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#newClientLocationModal"
-                    (click)="onNewClick($event)">Add ClientLocation</button>
+                    (click)="onNewClick($event)">Add Client Location</button>
             </div>
             <label for="drpSearchBy" class="col-form-label col-md-6 col-lg-2 offset-xl-1 col-xl-2 text-right">Search
                 by:</label>
@@ -222,9 +222,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-warning" data-dismiss="modal" id="editClientLocationFormCancel"
+                            <button class="btn btn-warning" data-dismiss="modal" id="deleteClientLocationFormCancel"
                                 type="button">Cancel</button>
-                            <button class="btn btn-success" (click)="onDeleteConfirmClick()">Update</button>
+                            <button class="btn btn-danger" (click)="onDeleteConfirmClick()">Delete</button>
                         </div>
                     </div>
                 </div>

@@ -1,9 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import *as $ from "jquery";
-import { TaskPriority } from 'src/app/models/task-priority';
-import { FilterPipe } from 'src/app/pipes/filter.pipe';
-import { TaskPriorityService } from 'src/app/services/task-priority.service';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: 'app-task',
