@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { LoginService } from './login.service';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-root',

@@ -38,6 +38,7 @@ export class AppComponent {
 //("https://upload.wikimedia.org/wikipedia/commons/1/12/User_icon_2.svg");
 
 ngOnInit(){
+  this.loginService.detectIfAlreadyLoggedIn();
   //emitt each time whenever a router event is triggerd
   this.router.events.subscribe((event) =>{
     //for identyfing the instance of a variable
