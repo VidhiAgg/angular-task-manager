@@ -16,7 +16,7 @@ import { SignUpViewModal } from '../../models/sign-up-view-modal';
 export class SignUpComponent implements OnInit, CanComponentDeactivate {
 
   signUpForm: FormGroup | any = null;
-  gender =["Male","Female"];
+  genders = ["male", "female"];
   countries: Country[] = [];
   registerError: string| null = null;
   canLeave : Boolean = true;
@@ -39,13 +39,11 @@ export class SignUpComponent implements OnInit, CanComponentDeactivate {
         firstName : [null, [Validators.required, Validators.minLength(3)]],
       lastName : [null, [Validators.required, Validators.minLength(3)]],
       }),
-      email : [null, {validators:[Validators.required, Validators.email],
-      asyncValidators:[this.customValidatorsService.duplicateValidator()],
-      updateOn :  "blur"}],
+      email: [null, [Validators.required, Validators.email], [this.customValidatorsService.duplicateEmailValidator()], { updateOn: 'blur' }],
       phoneNumber : [null, [Validators.required, Validators.pattern(/^[789]\d{9}$/)]],
       dob : [null, [Validators.required, this.customValidatorsService.minimumAgeValidator(18)]],
       password: [null,[Validators.required ]],
-      confirmPassword: [null,[Validators.required ], {updateOn : "blur"} ],
+      confirmPassword: [null,[Validators.required ]],//, {updateOn : "blur"} ],
       gender: [null, [Validators.required]],
       countryID : [null, [Validators.required]],
       receiveNewsLetters : [null],
@@ -69,16 +67,13 @@ export class SignUpComponent implements OnInit, CanComponentDeactivate {
   }
   onSubmitClick(){
     this.signUpForm["submitted"] = true;
-    //console.log(this.signUpForm);
+    console.log(this.signUpForm);
     if (this.signUpForm.valid) {
       //convert the signupForm as an object of the signUpViewModel
       var signUpViewModel = this.signUpForm.value as  SignUpViewModal;
-      this.loginService.register(signUpViewModel).subscribe((respone) =>{
+      this.loginService.register(signUpViewModel).subscribe((response) =>{
         this.canLeave = true; //can navigate to another route after saving form
         this.route.navigate(["/employee","task"]);
-
-
-
       },
       (error: any)=>{
         console.log(error);

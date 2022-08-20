@@ -27,7 +27,13 @@ export class LoginComponent implements OnInit {
     console.log(this.loginView);
     this.loginService.login(this.loginView).subscribe(
       (response)=>{
-        this.route.navigate(["/admin","dashboard"]);
+        if (this.loginService.currentUserRole == "Admin") {
+          this.route.navigate(["/admin","dashboard"]);
+        }else{
+          console.log("in log")
+          this.route.navigate(["/employee","task"]);
+
+        }
       },
       (error)=>{
         this.loginError="Invalid Username or Password";

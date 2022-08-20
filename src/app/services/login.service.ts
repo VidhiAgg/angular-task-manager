@@ -22,6 +22,8 @@ export class LoginService {
     
   }
   currentUserName: any=null;
+  // property to store te current user role, will be accessible to all the components by using the LoginService
+  currentUserRole : any = null;
   public login(loginView: LoginViewModel):Observable<any>{
     //represents the actual HttpClient w/o any interceptor i.e. 
     //the authorization req is not added for this req
@@ -33,6 +35,8 @@ export class LoginService {
       if(response)
       {
         this.currentUserName=response.body.userName;
+
+        this.currentUserRole = response.body.role;
         //ss so that it will not be accessible by oter tabs and browser
         //storing complete user object in the session storage
         //so it became availabel gor other services
@@ -74,21 +78,19 @@ export class LoginService {
     /**
      * register that will recives the signUpModel as parameter
      */
-    public register(signUpViewModel: SignUpViewModal):Observable<any>{
-       
-        this.httpClient = new HttpClient(this.httpBackend);
-        return this.httpClient.post<any>(this.url+"/register",signUpViewModel,{responseType:"json", observe: "response"})
-        .pipe(map(response =>{
-          if(response)
-          {
-            this.currentUserName=response.body.userName;
+     public register(signUpViewModel: SignUpViewModal): Observable<any> {
+      this.httpClient = new HttpClient(this.httpBackend);
+      return this.httpClient.post<any>(this.url + "/register", signUpViewModel, { responseType: "json", observe: "response" })
+        .pipe(map(response => {
+          if (response) {
+            this.currentUserName = response.body.userName;
             sessionStorage['currentUser'] = JSON.stringify(response.body);
-            sessionStorage['XSRFRequestToken'] = response.headers.get("XSRF-REQUEST-TOKEN")
+            sessionStorage['XSRFRequestToken'] = response.headers.get("XSRF-REQUEST-TOKEN");
           }
           return response.body;
         }));
-      
     }
+  
     getUserByEmail(email: string) :Observable<any>
     {
       this.httpClient = new HttpClient(this.httpBackend);
