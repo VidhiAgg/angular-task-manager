@@ -5,27 +5,43 @@
   </button>
   <div class="collapse navbar-collapse" id="mynav">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngIf="loginService.currentUserName != null">
-        <a class="nav-link" [routerLink]="['/admin','dashboard']">Dashboard</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['about']">About</a>
-      </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName!= null">
-        <a class="nav-link" [routerLink]="['/admin','projects']">Projects</a>
-      </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName!= null">
-        <a class="nav-link" [routerLink]="['/admin','masters']">Masters</a>
-      </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName!= null">
-        <a class="nav-link" href="#">{{loginService.currentUserName}}</a>
-      </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName!= null">
-        <a class="nav-link" href="#" (click)="loginService.logout()">Logout</a>
-      </li>
-      <li class="nav-item" *ngIf="loginService.currentUserName == null">
-        <a class="nav-link" [routerLink]="['/login']">Login</a>
-      </li>
+      <ng-container *ngIf="loginService.currentUserName != null && loginService.currentUserRole == 'Admin'">
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin','dashboard']">Dashboard</a>
+        </li>
+
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="['/admin','projects']">Projects</a>
+        </li>
+
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="['/admin','masters']">Masters</a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="loginService.currentUserName != null && loginService.currentUserRole == 'Employee'">
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="['/employee','task']">Tasks</a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="loginService.currentUserName == null">
+        <li class="nav-item" >
+          <a class="nav-link" [routerLink]="['signup']">Sign Up</a>
+          <li class="nav-item" >
+            <a class="nav-link" [routerLink]="['/login']">Login</a>
+        </li>
+      </ng-container>
+      <ng-container *ngIf="loginService.currentUserName != null">
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{loginService.currentUserName}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" (click)="loginService.logout()">Logout</a>
+        </li>
+        </ng-container>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['about']">About</a>
+        </li>
       <!--<li class=" nav-item">
         <a href='#'><img [src]="myProperty" width="50px"></a>
     </li>
@@ -35,9 +51,7 @@
         <!--<li class=" nav-item">
           <a href='#' [href]="myProperty">Hello</a>
       </li> -->
-      <li class="nav-item" *ngIf="loginService.currentUserName == null">
-        <a class="nav-link" [routerLink]="['signup']">Sign Up</a>
-      </li>
+    
   
     
 

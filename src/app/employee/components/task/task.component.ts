@@ -9,6 +9,7 @@ export class TaskComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("in task")
   }
 
 }

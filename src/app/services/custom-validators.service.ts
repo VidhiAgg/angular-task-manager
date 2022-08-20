@@ -53,7 +53,7 @@ export class CustomValidatorsService {
           return{ compareValidator : {valid : false}}; //invalid
         }
     }
-    public duplicateValidator():AsyncValidatorFn {
+    public duplicateEmailValidator():AsyncValidatorFn {
       //applying to entire form group rather than single form control.
       return(control: AbstractControl): Observable <ValidationErrors | null> => {
         return this.loginService.getUserByEmail(control.value).pipe(

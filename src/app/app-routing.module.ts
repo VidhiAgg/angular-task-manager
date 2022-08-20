@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'signup', component: SignUpComponent, data:{linkIndex:3}, canDeactivate : [CanDeactivateGuardService] },
   { path: 'login', component: LoginComponent, data:{linkIndex:2} },
   { path: 'about', component: AboutComponent, data:{linkIndex:1}},
-  {path:'admin', loadChildren: ()=> import("./admin/admin.module").then(m => m.AdminModule)}
+  {path:'admin', loadChildren: ()=> import("./admin/admin.module").then(m => m.AdminModule)},
+  {path:'employee', loadChildren: ()=> import("./employee/employee.module").then(m => m.EmployeeModule)} //for LazyLoading
 ];
 
 @NgModule({
