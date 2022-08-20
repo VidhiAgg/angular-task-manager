@@ -97,4 +97,13 @@ export class LoginService {
       return this.httpClient.get<any>(this.url+"/api/getUserByEmail/" + email,{responseType:"json"});
       
     }
+    detectIfAlreadyLoggedIn()
+    {
+      if (this.jwtHelerService.isTokenExpired() == false) {
+        var currentUser = JSON.parse(sessionStorage['currentUser']);
+        this.currentUserName = currentUser.userName;
+        this.currentUserRole = currentUser.role;
+      } 
+    }
+
 }
