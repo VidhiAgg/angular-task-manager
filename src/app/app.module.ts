@@ -34,7 +34,7 @@ import { AboutComponent } from './admin/components/about/about.component';
     AppRoutingModule,
     SharedModule,
    // AdminModule, because we are doing lazyLoading, adding that will load the admin mODULE EAGERLY
-    //EmployeeModule,
+    //EmployeeModule, because we are doing lazyLoading, adding that will load the admin mODULE EAGERLY
     
     JwtModule.forRoot({
       config:{
