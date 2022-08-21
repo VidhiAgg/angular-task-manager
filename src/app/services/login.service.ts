@@ -106,4 +106,11 @@ export class LoginService {
       } 
     }
 
+    getAllEmployees() :Observable<any>
+    {
+      this.httpClient = new HttpClient(this.httpBackend);
+      return this.httpClient.get<any>(this.url+"/api/getallemployees/", {responseType:"json"});
+      
+    }
+
 }
