@@ -63,6 +63,8 @@ export class LoginService {
      */
     public logout():void {
       sessionStorage.removeItem("currentUser");
+      this.currentUserName = null;
+      this.currentUserRole = null;
       this.router.navigate(['']);
     }
     public isAuthenticated(): boolean{
