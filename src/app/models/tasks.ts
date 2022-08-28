@@ -1,6 +1,7 @@
 import { Project } from "./project";
+import { TaskPriority } from "./task-priority";
 
-export class Task {
+export class Tasks {
     taskID : number;
     taskName: string;
     description : string;
@@ -12,6 +13,7 @@ export class Task {
     taskPriorityID: number;
     currentStatus : string;
     currentStatusID: number;
+    taskPriority : TaskPriority;
 
     project : Project;
     createdByUser : any;
@@ -34,6 +36,7 @@ export class Task {
         this.createdByUser = null;
         this.assignedToUser = null;
         this.taskStatusDetail = null;
+        this.taskPriority = null;
     
     }
 }
