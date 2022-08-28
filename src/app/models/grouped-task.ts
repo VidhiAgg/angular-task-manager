@@ -1,6 +1,8 @@
+import { Tasks } from "./tasks";
+
 export class GroupedTask {
     taskStatusName : number;
-    tasks : Task[];
+    tasks : Tasks[];
     constructor(){
         this.taskStatusName = null;
         this.tasks = null;
