@@ -72,7 +72,7 @@
                  let i = index" [ngClass]="{'text-muted' : !project.active}">
                     <!--Added mistake rsolved -->
                     <app-project #toggleDetail [currentProject]="project" [recordIndex]="i"
-                        (editClick)="onEditClick($event,project.projectID-1)" (deleteClick)="onDeleteClick($event,i)">
+                        (editClick)="onEditClick($event,project.projectID-1)" (deleteClick)="onDeleteClick($event,project.projectID-1)">
                         <!--Subscribing to parent component-->
                         <app-check-box-printer #selectionBox></app-check-box-printer>
                         <!--giving referne variable name-->

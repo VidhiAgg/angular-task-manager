@@ -34,5 +34,9 @@
 ## To start the angular application
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+### Credentials for login 
+username : `admin`.
+password : `Admin123#`
+
 
 
